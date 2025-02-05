@@ -417,26 +417,27 @@
   </ItemDefinitionGroup>
   <ItemGroup />
   <ItemGroup>
-    <ClCompile Include="BaseApp.cpp" />
     <ClCompile Include="CrayolaEngine.cpp" />
-    <ClCompile Include="Device.cpp" />
-    <ClCompile Include="DeviceContext.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="Window.cpp" />
+    <ClCompile Include="source\BaseApp.cpp" />
+    <ClCompile Include="source\Device.cpp" />
+    <ClCompile Include="source\DeviceContext.cpp" />
+    <ClCompile Include="source\Texture.cpp" />
+    <ClCompile Include="source\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CrayolaEngine.fx" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseApp.h" />
-    <ClInclude Include="Device.h" />
-    <ClInclude Include="DeviceContext.h" />
+    <ClInclude Include="include\BaseApp.h" />
+    <ClInclude Include="include\Device.h" />
+    <ClInclude Include="include\DeviceContext.h" />
     <ClInclude Include="include\Prerequisites.h" />
+    <ClInclude Include="include\Resource.h" />
+    <ClInclude Include="include\stb_image.h" />
+    <ClInclude Include="include\Swapchain.h" />
+    <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\Window.h" />
     <CLInclude Include="resource.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="Swapchain.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="Window.h" />
     <ResourceCompile Include="CrayolaEngine.rc" />
   </ItemGroup>
   <ItemGroup>
