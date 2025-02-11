@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Prerequisites.h"
-
+ 
 class
     DeviceContext {
 public:

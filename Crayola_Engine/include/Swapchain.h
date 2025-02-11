@@ -22,7 +22,7 @@ public:
      * @param backBuffer Textura de la ventana.
      * @param window Ventana.
      */
-    void
+    HRESULT
         init(Device& device,
             DeviceContext& deviceContext,
             Texture& backBuffer,

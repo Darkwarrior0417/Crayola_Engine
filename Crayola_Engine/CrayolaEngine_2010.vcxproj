@@ -418,16 +418,19 @@
   <ItemGroup />
   <ItemGroup>
     <ClCompile Include="CrayolaEngine.cpp" />
+    <ClCompile Include="DepthStencilView.cpp" />
     <ClCompile Include="source\BaseApp.cpp" />
     <ClCompile Include="source\Device.cpp" />
     <ClCompile Include="source\DeviceContext.cpp" />
     <ClCompile Include="source\Texture.cpp" />
     <ClCompile Include="source\Window.cpp" />
+    <ClCompile Include="Swapchain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="CrayolaEngine.fx" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DepthStencilView.h" />
     <ClInclude Include="include\BaseApp.h" />
     <ClInclude Include="include\Device.h" />
     <ClInclude Include="include\DeviceContext.h" />
@@ -437,6 +440,7 @@
     <ClInclude Include="include\Swapchain.h" />
     <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\Window.h" />
+    <ClInclude Include="RenderTargetView.h" />
     <CLInclude Include="resource.h" />
     <ResourceCompile Include="CrayolaEngine.rc" />
   </ItemGroup>

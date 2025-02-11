@@ -47,6 +47,12 @@
     <ClInclude Include="include\Resource.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="DepthStencilView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderTargetView.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CrayolaEngine.cpp" />
@@ -63,6 +69,12 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Window.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="DepthStencilView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="Swapchain.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
