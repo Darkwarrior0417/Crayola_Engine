@@ -1,35 +1,52 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
-    </Filter>
-    <Filter Include="DXUT">
-      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shaders">
-      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
-      <Extensions>fx;fxh;hlsl</Extensions>
-    </Filter>
-    <Filter Include="source">
-      <UniqueIdentifier>{c95c5778-a67d-4ee0-8581-2176f7a22881}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{bac6d8a7-8482-40df-be42-5a0e17c072d3}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="CrayolaEngine.cpp" />
+    <ClCompile Include="source\BaseApp.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DepthStencilView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Device.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DeviceContext.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Swapchain.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Window.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderTargetView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Prerequisites.h">
+    <ClInclude Include="include\BaseApp.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\BaseApp.h">
+    <ClInclude Include="include\DepthStencilView.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\Device.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\DeviceContext.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Prerequisites.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderTargetView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\stb_image.h">
@@ -44,60 +61,26 @@
     <ClInclude Include="include\Window.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Resource.h">
-      <Filter>include</Filter>
-    </ClInclude>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-    <ClInclude Include="include\RenderTargetView.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\DepthStencilView.h">
-      <Filter>include</Filter>
-    </ClInclude>
->>>>>>> Stashed changes
+    <CLInclude Include="resource.h">
+      <Filter>Shaders</Filter>
+    </CLInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CrayolaEngine.cpp" />
-    <ClCompile Include="source\BaseApp.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Device.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\DeviceContext.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Texture.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Window.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-    <ClCompile Include="source\DepthStencilView.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Swapchain.cpp">
-<<<<<<< Updated upstream
-=======
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\RenderTargetView.cpp">
->>>>>>> Stashed changes
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="source\RenderTargetView.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
->>>>>>> Stashed changes
+    <Filter Include="DXUT">
+      <UniqueIdentifier>{c76595cd-7fb9-4717-b1bb-0ec28c83926e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{bcea3988-d2c4-4c2f-8526-28562b81467b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{673649bc-b195-4658-a3d0-4afb63c75d85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{6f02c05b-37e8-47a9-bc36-375146f9a39a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{eac25907-ef3a-4928-a261-36d77716aef5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="CrayolaEngine.fx">
@@ -105,13 +88,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CLInclude Include="resource.h">
-      <Filter>Resource Files</Filter>
-    </CLInclude>
     <ResourceCompile Include="CrayolaEngine.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
 </Project>
