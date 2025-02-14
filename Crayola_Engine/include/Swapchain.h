@@ -17,6 +17,7 @@ public:
 
     /**
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
      * @brief Inicializa el swapchain.
      *
      * @param device Dispositivo.
@@ -26,6 +27,8 @@ public:
      */
     void
 =======
+=======
+>>>>>>> Stashed changes
     * @brief Configura e inicializa el swapchain.
     * @param device Referencia al dispositivo DirectX.
     * @param deviceContext Referencia al contexto del dispositivo.

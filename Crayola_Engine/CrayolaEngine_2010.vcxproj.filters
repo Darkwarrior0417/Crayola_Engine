@@ -48,7 +48,10 @@
       <Filter>include</Filter>
     </ClInclude>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     <ClInclude Include="include\RenderTargetView.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -75,11 +78,20 @@
       <Filter>source</Filter>
     </ClCompile>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     <ClCompile Include="source\DepthStencilView.cpp">
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\Swapchain.cpp">
+<<<<<<< Updated upstream
+=======
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderTargetView.cpp">
+>>>>>>> Stashed changes
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\RenderTargetView.cpp">

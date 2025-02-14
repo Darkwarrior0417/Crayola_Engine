@@ -16,6 +16,7 @@ class
     Texture {
 public:
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     Texture() = default;
     ~Texture() = default;
 
@@ -90,6 +91,56 @@ public:
     void
         update();
 
+=======
+    /**
+     * @brief Constructor por defecto.
+     */
+    Texture() = default;
+
+    /**
+     * @brief Destructor por defecto.
+     */
+    ~Texture() = default;
+
+    /**
+     * @brief Inicializa una textura desde un archivo de imagen.
+     *
+     * @param device Referencia al dispositivo Direct3D.
+     * @param textureName Nombre del archivo de la textura.
+     * @param extensionType Tipo de extensi�n del archivo de la textura.
+     * @return HRESULT C�digo de resultado indicando �xito o error en la operaci�n.
+     */
+    HRESULT init(Device device,
+        const std::string& textureName,
+        ExtensionType extensionType);
+
+    /**
+     * @brief Inicializa una textura con dimensiones y formato espec�ficos.
+     *
+     * @param device Referencia al dispositivo Direct3D.
+     * @param width Ancho de la textura en p�xeles.
+     * @param height Alto de la textura en p�xeles.
+     * @param Format Formato de la textura (DXGI_FORMAT).
+     * @param BindFlags Flags que indican el uso de la textura.
+     * @param sampleCount N�mero de muestras para antialiasing (opcional, por defecto 1).
+     * @param qualityLevels Niveles de calidad del muestreo (opcional, por defecto 0).
+     * @return HRESULT C�digo de resultado indicando �xito o error en la operaci�n.
+     */
+    HRESULT init(Device device,
+        unsigned int width,
+        unsigned int height,
+        DXGI_FORMAT Format,
+        unsigned int BindFlags,
+        unsigned int sampleCount = 1,
+        unsigned int qualityLevels = 0);
+
+    /**
+     * @brief Actualiza la textura si es necesario.
+     */
+    void
+        update();
+
+>>>>>>> Stashed changes
     /**
      * @brief Renderiza la textura en la etapa de shader.
      *
@@ -105,11 +156,15 @@ public:
     /**
      * @brief Libera los recursos asociados con la textura.
      */
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     void
         destroy();
 
 public:
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     // This variable is in charge of handle a texture resource as data
     ID3D11Texture2D* m_texture = nullptr;
@@ -117,6 +172,10 @@ public:
     ID3D11ShaderResourceView* m_textureFromImg;
 
 private:
+=======
+    /// Puntero a la interfaz ID3D11Texture2D que representa la textura como recurso de datos.
+    ID3D11Texture2D* m_texture = nullptr;
+>>>>>>> Stashed changes
 =======
     /// Puntero a la interfaz ID3D11Texture2D que representa la textura como recurso de datos.
     ID3D11Texture2D* m_texture = nullptr;
