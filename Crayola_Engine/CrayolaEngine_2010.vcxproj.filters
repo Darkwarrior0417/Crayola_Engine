@@ -47,6 +47,15 @@
     <ClInclude Include="include\Resource.h">
       <Filter>include</Filter>
     </ClInclude>
+<<<<<<< Updated upstream
+=======
+    <ClInclude Include="include\RenderTargetView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DepthStencilView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CrayolaEngine.cpp" />
@@ -65,6 +74,18 @@
     <ClCompile Include="source\Window.cpp">
       <Filter>source</Filter>
     </ClCompile>
+<<<<<<< Updated upstream
+=======
+    <ClCompile Include="source\DepthStencilView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Swapchain.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderTargetView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <None Include="CrayolaEngine.fx">

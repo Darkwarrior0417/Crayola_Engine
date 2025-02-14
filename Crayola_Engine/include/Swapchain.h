@@ -1,13 +1,14 @@
 ﻿#pragma once
 #include "Prerequisites.h"
 
-// Forward Declarations - Declaraciones Directas
-class Device;
-class DeviceContext;
-class Window;
-class Texture;
+// Declaraciones anticipadas - Clases DirectX
+class Device; // Representa el dispositivo DirectX.
+class DeviceContext; // Maneja el contexto de comandos para el dispositivo.
+class Window;  // Clase para controlar la ventana de la aplicación.
+class Texture;  // Gestiona las texturas en DirectX.
 
 
+// Clase Swapchain que se encarga del intercambio de buffers para la renderización en pantalla.
 class
     Swapchain {
 public:
@@ -15,6 +16,7 @@ public:
     ~Swapchain() = default;
 
     /**
+<<<<<<< Updated upstream
      * @brief Inicializa el swapchain.
      *
      * @param device Dispositivo.
@@ -23,55 +25,63 @@ public:
      * @param window Ventana.
      */
     void
+=======
+    * @brief Configura e inicializa el swapchain.
+    * @param device Referencia al dispositivo DirectX.
+    * @param deviceContext Referencia al contexto del dispositivo.
+    * @param backBuffer Referencia a la textura usada como búfer posterior.
+    * @param window Referencia a la ventana de la aplicación.
+    * @return HRESULT Valor de resultado indicando éxito o fallo.
+    */
+
+    HRESULT
+>>>>>>> Stashed changes
         init(Device& device,
             DeviceContext& deviceContext,
             Texture& backBuffer,
             Window& window);
 
     /**
-    * @brief Actualiza el estado del swapchain.
+    * @brief Actualiza el estado actual del swapchain.
     */
     void
         update();
 
     /**
-    * @brief Renderiza el contenido utilizando el swapchain.
+    * @brief Ejecuta el proceso de renderización usando el swapchain.
     */
     void
         render();
 
     /**
-    * @brief Destruye el swapchain y libera los recursos asociados.
+    * @brief Libera los recursos relacionados con el swapchain.
     */
     void
         destroy();
 
     /**
-    * @brief Presenta el contenido del swapchain.
+    * @brief Muestra el frame actual en la pantalla.
     */
     void
         present();
 
-    IDXGISwapChain* m_swapchain = nullptr; // Swapchain
-    D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_NULL; // Driver Type
+public:
+    // Puntero a la interfaz de swapchain de DirectX.
+    IDXGISwapChain* m_swapchain = nullptr;
+    // Tipo de controlador gráfico utilizado.
+    D3D_DRIVER_TYPE m_driverType = D3D_DRIVER_TYPE_NULL;
 
 private:
-    D3D_FEATURE_LEVEL m_featureLevel = D3D_FEATURE_LEVEL_11_0; // Feature Level
+    // Nivel de características de Direct3D (por defecto, Direct3D 11.0).
+    D3D_FEATURE_LEVEL m_featureLevel = D3D_FEATURE_LEVEL_11_0;
 
-    // MSAA Configuration
-    // Para evitar que los p�xeles se vean con un efecto de "serrucho" (aliasing) en DirectX 11 con C++,
-    // se puede utilizar una t�cnica llamada anti-aliasing.
-
-    // Multisample Anti-Aliasing (MSAA)
-    // MSAA es una t�cnica que suaviza los bordes de los objetos al muestrear varios puntos por p�xel.
-    // Para habilitar MSAA en DirectX 11:
-
-    unsigned int m_sampleCount; // Number of MSAA samples (4x MSAA)
-    unsigned int m_qualityLevels; // Quality levels of MSAA
+    // Cantidad de muestras para el antialiasing MSAA.
+    unsigned int m_sampleCount;
+    // Niveles de calidad para el MSAA.
+    unsigned int m_qualityLevels;
 
     // Punteros a las interfaces DXGI
-    IDXGIDevice* m_dxgiDevice = nullptr; // DXGI Device
-    IDXGIAdapter* m_dxgiAdapter = nullptr; // DXGI Adapter
-    IDXGIFactory* m_dxgiFactory = nullptr; // DXGI Factory
-
+    IDXGIDevice* m_dxgiDevice = nullptr; // Dispositivo DXGI.
+    IDXGIAdapter* m_dxgiAdapter = nullptr; // Adaptador DXGI.
+    IDXGIFactory* m_dxgiFactory = nullptr;  // Fábrica DXGI para crear objetos asociados.
 };
