@@ -1,76 +1,12 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\devicecontext.obj
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\baseapp.obj
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\device.obj
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\crayolaengine.obj
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\texture.obj
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\window.obj
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\vc143.pdb
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\crayolaengine_d.ilk
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\bin\x64\crayolaengine_d.exe
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\bin\x64\crayolaengine_d.pdb
-c:\users\darkw\onedrive\escritorio\arqui motores\motores\crayolaengine\intermediate\crayolaengine\x64\debug\crayolaengine.res
-=======
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\rendertargetview.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\devicecontext.obj
->>>>>>> Stashed changes
-=======
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\rendertargetview.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\devicecontext.obj
->>>>>>> Stashed changes
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\baseapp.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\swapchain.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\device.obj
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.obj
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\depthstencilview.obj
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\device.obj
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\devicecontext.obj
+c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\swapchain.obj
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\texture.obj
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\window.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine_d.ilk
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.res
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\vc143.idb
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\vc143.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin/x64/crayolaengine_d.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin\x64\crayolaengine_d.exe
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate/crayolaengine/x64/debug/crayolaengine_2010.vcxproj.filelistabsolute.txt
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\cl.20256.write.1.tlog
-=======
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\depthstencilview.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\texture.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\window.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\vc143.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine_d.ilk
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin\x64\crayolaengine_d.exe
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin\x64\crayolaengine_d.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.res
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\vc143.idb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin/x64/crayolaengine_d.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate/crayolaengine/x64/debug/crayolaengine_2010.vcxproj.filelistabsolute.txt
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\cl.1864.write.1.tlog
->>>>>>> Stashed changes
-=======
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\depthstencilview.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\texture.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\window.obj
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\vc143.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine_d.ilk
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin\x64\crayolaengine_d.exe
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin\x64\crayolaengine_d.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.res
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\vc143.idb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\bin/x64/crayolaengine_d.pdb
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate/crayolaengine/x64/debug/crayolaengine_2010.vcxproj.filelistabsolute.txt
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\cl.1864.write.1.tlog
->>>>>>> Stashed changes
 c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\cl.command.1.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\cl.items.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\cl.read.1.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\link.command.1.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\link.read.1.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\link.write.1.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\rc.command.1.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\rc.read.1.tlog
-c:\users\darkw\onedrive\escritorio\github\arquitectura_motores\crayola_engine\crayola_engine\intermediate\crayolaengine\x64\debug\crayolaengine.tlog\rc.write.1.tlog

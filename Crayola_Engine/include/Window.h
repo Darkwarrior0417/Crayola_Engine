@@ -1,8 +1,8 @@
-#pragma once
+ï»¿#pragma once
 #include "Prerequisites.h"
 
 class
-Window {
+	Window {
 public:
 	/**
 	 * @brief Constructor y destructor por defecto.
@@ -12,32 +12,32 @@ public:
 
 	/**
 	 * @brief Inicializa la ventana.
-	 * 
-	 * @param hInstance Instancia de la aplicación.
+	 *
+	 * @param hInstance Instancia de la aplicaciï¿½n.
 	 * @param nCmdShow Comando para mostrar la ventana.
 	 * @param wndproc Procedimiento de ventana (callback).
-	 * @return HRESULT Resultado de la inicialización.
+	 * @return HRESULT Resultado de la inicializaciï¿½n.
 	 */
 	HRESULT
-	init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
+		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
 
 	/**
 	 * @brief Actualiza el estado de la ventana.
 	 */
 	void
-	update();
+		update();
 
 	/**
 	 * @brief Renderiza el contenido de la ventana.
 	 */
 	void
-	render();
+		render();
 
 	/**
 	 * @brief Libera los recursos de la ventana.
 	 */
 	void
-	destroy();
+		destroy();
 
 public:
 	// Handle de la ventana.
@@ -48,9 +48,9 @@ public:
 	unsigned int m_height;
 
 private:
-	// Instancia de la aplicación.
+	// Instancia de la aplicaciï¿½n.
 	HINSTANCE m_hInst = nullptr;
-	// Estructura que define el tamaño de la ventana.
+	// Estructura que define el tamaï¿½o de la ventana.
 	RECT m_rect;
 	// Nombre de la ventana.
 	std::string m_windowName = "Crayola_Engine";
