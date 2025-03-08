@@ -1,146 +1,270 @@
-﻿#include "DeviceContext.h"
+﻿#include "Device.h"
 
 void
-DeviceContext::OMSetRenderTargets(unsigned int NumViews,
-    ID3D11RenderTargetView* const* ppRenderTargetViews,
-    ID3D11DepthStencilView* pDepthStencilView) {
-    // Validar los par�metros
-    if (!ppRenderTargetViews && !pDepthStencilView) {
-        ERROR("DeviceContext", "OMSetRenderTargets",
-            "Both ppRenderTargetViews and pDepthStencilView are nullptr");
-        return;
+Device::destroy() {
+    SAFE_RELEASE(m_device);
+}
+
+HRESULT
+Device::CreateRenderTargetView(ID3D11Resource* pResource,
+    const D3D11_RENDER_TARGET_VIEW_DESC* pDesc,
+    ID3D11RenderTargetView** ppRTView) {
+    // Validar prametros de entrada
+    if (!pResource) {
+        ERROR("Device", "CreateRenderTargetView", "pResurce is nullptr");
+        return E_INVALIDARG; // Argumento Invalido
     }
 
-    if (NumViews > 0 && !ppRenderTargetViews) {
-        ERROR("DeviceContext", "OMSetRenderTargets",
-            "ppRenderTargetViews is nullptr, but NumViews > 0");
-        return;
+    if (!ppRTView) {
+        ERROR("Device", "CreateRenderTargetView", "ppRTView is nullptr");
+        return E_POINTER; // Puntero nulo
     }
 
-    // Asignar los render targets y el depth stencil
-    m_deviceContext->OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView);
-}
+    // Crear el Render Target View
+    HRESULT hr = m_device->CreateRenderTargetView(pResource, pDesc, ppRTView);
 
-void
-DeviceContext::RSSetViewports(unsigned int NumViewports,
-    const D3D11_VIEWPORT* pViewports) {
-    if (!pViewports) {
-        ERROR("DeviceContext", "RSSetViewports", "pViewports is nullptr");
-        return;
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateRenderTargetView", "Render Target View created successfully!");
+    }
+    else {
+        ERROR("Device", "CreateRenderTargetView",
+            ("Failed to create Render Target View. HRESULT: " + std::to_string(hr)).c_str());
     }
 
-    m_deviceContext->RSSetViewports(NumViewports, pViewports);
+    return hr;
 }
 
-void
-DeviceContext::IASetInputLayout(ID3D11InputLayout* pInputLayout) {
-    if (!pInputLayout) {
-        ERROR("DeviceContext", "IASetInputLayout", "pInputLayout is nullptr");
-        return;
+HRESULT
+Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
+    const D3D11_SUBRESOURCE_DATA* pInitialData,
+    ID3D11Texture2D** ppTexture2D) {
+    if (!pDesc) {
+        ERROR("Device", "CreateTexture2D", "pDesc is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppTexture2D) {
+        ERROR("Device", "CreateTexture2D", "ppTexture2D is nullptr");
+        return E_POINTER;
     }
 
-    m_deviceContext->IASetInputLayout(pInputLayout);
-}
+    HRESULT hr = m_device->CreateTexture2D(pDesc, pInitialData, ppTexture2D);
 
-void
-DeviceContext::IASetVertexBuffers(unsigned int StartSlot,
-    unsigned int NumBuffers,
-    ID3D11Buffer* const* ppVertexBuffers,
-    const unsigned int* pStrides,
-    const unsigned int* pOffsets) {
-    if (!ppVertexBuffers || !pStrides || !pOffsets) {
-        ERROR("DeviceContext", "IASetVertexBuffers",
-            "Invalid arguments: ppVertexBuffers, pStrides, or pOffsets is nullptr");
-        return;
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateTexture2D", "Texture2D created successfully");
+    }
+    else {
+        ERROR("Device", "CreateTexture2D",
+            ("Failed to create Texture2D. HRESULT: " + std::to_string(hr)).c_str());
     }
 
-    m_deviceContext->IASetVertexBuffers(StartSlot, NumBuffers, ppVertexBuffers, pStrides, pOffsets);
+    return hr;
 }
 
-void
-DeviceContext::IASetIndexBuffer(ID3D11Buffer* pIndexBuffer,
-    DXGI_FORMAT Format,
-    unsigned int Offset) {
-    if (!pIndexBuffer) {
-        ERROR("DeviceContext", "IASetIndexBuffer", "pIndexBuffer is nullptr");
-        return;
+HRESULT
+Device::CreateDepthStencilView(ID3D11Resource* pResource,
+    const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc,
+    ID3D11DepthStencilView** ppDepthStencilView) {
+    if (!pResource) {
+        ERROR("Device", "CreateDepthStencilView", "pResource is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppDepthStencilView) {
+        ERROR("Device", "CreateDepthStencilView", "ppDepthStencilView is nullptr");
+        return E_POINTER;
     }
 
-    m_deviceContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
-}
+    HRESULT hr = m_device->CreateDepthStencilView(pResource, pDesc, ppDepthStencilView);
 
-void
-DeviceContext::IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY Topology) {
-    // Validar el par�metro Topology
-    if (Topology == D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED) {
-        ERROR("DeviceContext", "IASetPrimitiveTopology",
-            "Topology is D3D11_PRIMITIVE_TOPOLOGY_UNDEFINED");
-        return;
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateDepthStencilView", "DepthStencilView created successfully");
+    }
+    else {
+        ERROR("Device", "CreateDepthStencilView",
+            ("Failed to create DepthStencilView. HRESULT: " + std::to_string(hr)).c_str());
     }
 
-    // Asignar la topolog�a al Input Assembler
-    m_deviceContext->IASetPrimitiveTopology(Topology);
+    return hr;
 }
 
-void
-DeviceContext::UpdateSubresource(ID3D11Resource* pDstResource,
-    unsigned int DstSubresource,
-    const D3D11_BOX* pDstBox,
-    const void* pSrcData,
-    unsigned int SrcRowPitch,
-    unsigned int SrcDepthPitch) {
+HRESULT
+Device::CreateVertexShader(const void* pShaderBytecode,
+    unsigned int BytecodeLength,
+    ID3D11ClassLinkage* pClassLinkage,
+    ID3D11VertexShader** ppVertexShader) {
+    if (!pShaderBytecode) {
+        ERROR("Device", "CreateVertexShader", "pShaderBytecode is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppVertexShader) {
+        ERROR("Device", "CreateVertexShader", "ppVertexShader is nullptr");
+        return E_POINTER;
+    }
+
+    HRESULT hr = m_device->CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader);
+
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateVertexShader", "VertexShader created successfully");
+    }
+    else {
+        ERROR("Device", "CreateVertexShader",
+            ("Failed to create VertexShader. HRESULT: " + std::to_string(hr)).c_str());
+    }
+
+    return hr;
 }
 
-void
-DeviceContext::ClearRenderTargetView(ID3D11RenderTargetView* pRenderTargetView,
-    const FLOAT ColorRGBA[4]) {
+HRESULT
+Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
+    unsigned int NumElements,
+    const void* pShaderBytecodeWithInputSignature,
+    unsigned int BytecodeLength,
+    ID3D11InputLayout** ppInputLayout) {
+    if (!pInputElementDescs) {
+        ERROR("Device", "CreateInputLayout", "pInputElementDescs is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppInputLayout) {
+        ERROR("Device", "CreateInputLayout", "ppInputLayout is nullptr");
+        return E_POINTER;
+    }
+
+    HRESULT hr = m_device->CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength, ppInputLayout);
+
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateInputLayout", "InputLayout created successfully");
+    }
+    else {
+        ERROR("Device", "CreateInputLayout",
+            ("Failed to create InputLayout. HRESULT: " + std::to_string(hr)).c_str());
+    }
+
+    return hr;
 }
 
-void
-DeviceContext::ClearDepthStencilView(ID3D11DepthStencilView* pDepthStencilView,
-    FLOAT Depth,
-    UINT8 Stencil) {
+HRESULT
+Device::CreatePixelShader(const void* pShaderBytecode,
+    unsigned int BytecodeLength,
+    ID3D11ClassLinkage* pClassLinkage,
+    ID3D11PixelShader** ppPixelShader) {
+    if (!pShaderBytecode) {
+        ERROR("Device", "CreatePixelShader", "pShaderBytecode is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppPixelShader) {
+        ERROR("Device", "CreatePixelShader", "ppPixelShader is nullptr");
+        return E_POINTER;
+    }
+
+    HRESULT hr = m_device->CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader);
+
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreatePixelShader", "PixelShader created successfully");
+    }
+    else {
+        ERROR("Device", "CreatePixelShader",
+            ("Failed to create PixelShader. HRESULT: " + std::to_string(hr)).c_str());
+    }
+
+    return hr;
 }
 
-void
-DeviceContext::VSSetShader(ID3D11VertexShader* pVertexShader,
-    ID3D11ClassInstance*
-    const* ppClassInstances,
-    unsigned int NumClassInstances) {
+HRESULT
+Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
+    const D3D11_SUBRESOURCE_DATA* pInitialData,
+    ID3D11Buffer** ppBuffer) {
+    if (!pDesc) {
+        ERROR("Device", "CreateBuffer", "pDesc is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppBuffer) {
+        ERROR("Device", "CreateBuffer", "ppBuffer is nullptr");
+        return E_POINTER;
+    }
+
+    HRESULT hr = m_device->CreateBuffer(pDesc, pInitialData, ppBuffer);
+
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateBuffer", "Buffer created successfully");
+    }
+    else {
+        ERROR("Device", "CreateBuffer",
+            ("Failed to create Buffer. HRESULT: " + std::to_string(hr)).c_str());
+    }
+
+    return hr;
 }
 
-void
-DeviceContext::VSSetConstantBuffers(unsigned int StartSlot,
-    unsigned int NumBuffers,
-    ID3D11Buffer* const* ppConstantBuffers) {
+HRESULT
+Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
+    ID3D11SamplerState** ppSamplerState) {
+    if (!pSamplerDesc) {
+        ERROR("Device", "CreateSamplerState", "pSamplerDesc is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppSamplerState) {
+        ERROR("Device", "CreateSamplerState", "ppSamplerState is nullptr");
+        return E_POINTER;
+    }
+
+    HRESULT hr = m_device->CreateSamplerState(pSamplerDesc, ppSamplerState);
+
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateSamplerState", "SamplerState created successfully");
+    }
+    else {
+        ERROR("Device", "CreateSamplerState",
+            ("Failed to create SamplerState. HRESULT: " + std::to_string(hr)).c_str());
+    }
+
+    return hr;
 }
 
-void
-DeviceContext::PSSetShader(ID3D11PixelShader* pPixelShader,
-    ID3D11ClassInstance* const* ppClassInstances,
-    unsigned int NumClassInstances) {
+HRESULT
+Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
+    ID3D11RasterizerState** ppRasterizerState) {
+    if (!pRasterizerDesc) {
+        ERROR("Device", "CreateRasterizerState", "pRasterizerDesc is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppRasterizerState) {
+        ERROR("Device", "CreateRasterizerState", "ppRasterizerState is nullptr");
+        return E_POINTER;
+    }
+
+    HRESULT hr = m_device->CreateRasterizerState(pRasterizerDesc, ppRasterizerState);
+
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateRasterizerState", "RasterizerState created successfully");
+    }
+    else {
+        ERROR("Device", "CreateRasterizerState",
+            ("Failed to create RasterizerState. HRESULT: " + std::to_string(hr)).c_str());
+    }
+
+    return hr;
 }
 
-void
-DeviceContext::PSSetConstantBuffers(unsigned int StartSlot,
-    unsigned int NumBuffers,
-    ID3D11Buffer* const* ppConstantBuffers) {
-}
+HRESULT
+Device::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc,
+    ID3D11BlendState** ppBlendState) {
+    if (!pBlendStateDesc) {
+        ERROR("Device", "CreateBlendState", "pBlendStateDesc is nullptr");
+        return E_INVALIDARG;
+    }
+    if (!ppBlendState) {
+        ERROR("Device", "CreateBlendState", "ppBlendState is nullptr");
+        return E_POINTER;
+    }
 
-void
-DeviceContext::PSSetShaderResources(unsigned int StartSlot,
-    unsigned int NumViews,
-    ID3D11ShaderResourceView* const* ppShaderResourceViews) {
-}
+    HRESULT hr = m_device->CreateBlendState(pBlendStateDesc, ppBlendState);
 
-void
-DeviceContext::PSSetSamplers(unsigned int StartSlot,
-    unsigned int NumSamplers,
-    ID3D11SamplerState* const* ppSamplers) {
-}
+    if (SUCCEEDED(hr)) {
+        MESSAGE("Device", "CreateBlendState", "BlendState created successfully");
+    }
+    else {
+        ERROR("Device", "CreateBlendState",
+            ("Failed to create BlendState. HRESULT: " + std::to_string(hr)).c_str());
+    }
 
-void
-DeviceContext::DrawIndexed(unsigned int IndexCount,
-    unsigned int StartIndexLocation,
-    INT BaseVertexLocation) {
+    return hr;
 }

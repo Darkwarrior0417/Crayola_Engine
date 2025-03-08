@@ -1,4 +1,4 @@
-#include "Swapchain.h"
+ï»¿#include "Swapchain.h"
 #include "Device.h"
 #include "DeviceContext.h"
 #include "Window.h"
@@ -68,7 +68,7 @@ HRESULT SwapChain::init(Device& device,
         return hr;
     }
 
-    // Configurar la descripción del SwapChain
+    // Configurar la descripciÃ³n del SwapChain
     DXGI_SWAP_CHAIN_DESC sd = {};
     sd.BufferCount = 1;
     sd.BufferDesc.Width = window.m_width;
@@ -81,9 +81,9 @@ HRESULT SwapChain::init(Device& device,
     sd.Windowed = TRUE;
     sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
     sd.SampleDesc.Count = m_sampleCount;
-    sd.SampleDesc.Quality = m_qualityLevels - 1; // Máxima calidad
+    sd.SampleDesc.Quality = m_qualityLevels - 1; // MÃ¡xima calidad
 
-    // Obtener la fábrica DXGI
+    // Obtener la fÃ¡brica DXGI
     hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&m_dxgiDevice));
     if (FAILED(hr)) {
         ERROR("SwapChain", "init", "Failed to query IDXGIDevice");
