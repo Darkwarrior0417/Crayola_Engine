@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="DXUT">
+      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{c95c5778-a67d-4ee0-8581-2176f7a22881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{bac6d8a7-8482-40df-be42-5a0e17c072d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui">
+      <UniqueIdentifier>{5fde27ec-98ff-49c5-bf81-f3285527976c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\src">
+      <UniqueIdentifier>{49d815d1-0dcb-4e95-a7b2-d8ca49bb4761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imgui\Include">
+      <UniqueIdentifier>{edd027a6-a7b2-4d47-8752-544111a773f7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Device.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DeviceContext.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stb_image.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Swapchain.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Window.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Github\Arquitectura_Motores\Crayola_Engine\Crayola_Engine\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DepthStencilView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RenderTargetView.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resource.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Viewport.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ShaderProgram.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Buffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\InputLayout.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshComponent.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SamplerState.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\backends\imgui_impl_dx11.h">
+      <Filter>Imgui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\backends\imgui_impl_win32.h">
+      <Filter>Imgui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BaseApp.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Prerequisites.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UI.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\imconfig.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\imgui.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\imgui_internal.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\imstb_rectpack.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\imstb_textedit.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imgui-docking\imstb_truetype.h">
+      <Filter>Imgui\Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CrayolaEngine.cpp" />
+    <ClCompile Include="source\BaseApp.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Device.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DeviceContext.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Texture.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Window.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DepthStencilView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RenderTargetView.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Swapchain.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Buffer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\InputLayout.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Viewport.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-docking\imgui.cpp">
+      <Filter>Imgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-docking\imgui_demo.cpp">
+      <Filter>Imgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-docking\imgui_draw.cpp">
+      <Filter>Imgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-docking\imgui_tables.cpp">
+      <Filter>Imgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-docking\imgui_widgets.cpp">
+      <Filter>Imgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-docking\backends\imgui_impl_dx11.cpp">
+      <Filter>Imgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui-docking\backends\imgui_impl_win32.cpp">
+      <Filter>Imgui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SampleState.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ShaderProgram.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CrayolaEngine.fx">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="CrayolaEngine.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+</Project>
