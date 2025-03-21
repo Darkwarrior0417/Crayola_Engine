@@ -1,25 +1,35 @@
 ﻿#include "InputLayout.h"
 #include "Device.h"
 #include "DeviceContext.h"
-HRESULT
-InputLayout::init(Device& device,
+
+/*
+ @brief Inicializa el Input Layout a partir de una descripción y los datos del Vertex Shader.
+ @param device Dispositivo de DirectX.
+ @param Layout Vector con la descripción de los elementos de entrada.
+ @param VertexShaderData Blob que contiene el bytecode del vertex shader.
+ @return HRESULT que indica éxito o error.
+*/
+HRESULT InputLayout::init(Device& device,
     std::vector<D3D11_INPUT_ELEMENT_DESC>& Layout,
     ID3DBlob* VertexShaderData) {
+
     if (Layout.empty()) {
         ERROR("InputLayout", "init", "Layout vector is empty");
         return E_INVALIDARG;
     }
+
     if (!VertexShaderData) {
         ERROR("InputLayout", "init", "VertexShaderData is nullptr");
         return E_POINTER;
     }
-    HRESULT hr = S_OK;
 
-    hr = device.CreateInputLayout(Layout.data(),
+    HRESULT hr = device.CreateInputLayout(
+        Layout.data(),
         static_cast<unsigned int>(Layout.size()),
         VertexShaderData->GetBufferPointer(),
         VertexShaderData->GetBufferSize(),
-        &m_inputLayout);
+        &m_inputLayout
+    );
 
     if (FAILED(hr)) {
         ERROR("InputLayout", "init", "Failed to create InputLayout");
@@ -29,13 +39,18 @@ InputLayout::init(Device& device,
     return S_OK;
 }
 
-void
-InputLayout::update() {
-    // M�todo vacío, se puede utilizar en caso de necesitar cambios dinámicos en el layout
+/*
+ @brief Método vacío que puede utilizarse para actualizar el layout dinámicamente si es necesario.
+*/
+void InputLayout::update() {
+    // Implementación opcional
 }
 
-void
-InputLayout::render(DeviceContext& deviceContext) {
+/*
+ @brief Establece el Input Layout en el pipeline gráfico.
+ @param deviceContext Contexto del dispositivo donde se asignará el layout.
+*/
+void InputLayout::render(DeviceContext& deviceContext) {
     if (!m_inputLayout) {
         ERROR("InputLayout", "render", "InputLayout is nullptr");
         return;
@@ -44,7 +59,9 @@ InputLayout::render(DeviceContext& deviceContext) {
     deviceContext.IASetInputLayout(m_inputLayout);
 }
 
-void
-InputLayout::destroy() {
+/*
+ @brief Libera los recursos asociados al Input Layout.
+*/
+void InputLayout::destroy() {
     SAFE_RELEASE(m_inputLayout);
 }

@@ -4,10 +4,12 @@
 #include "Window.h"
 #include "Texture.h"
 
+// Inicializa el SwapChain, crea el dispositivo, contexto, back buffer y MSAA
 HRESULT SwapChain::init(Device& device,
     DeviceContext& deviceContext,
     Texture& backBuffer,
-    Window& window) { // <-- CORREGIDO: Se pasa por referencia (&)
+    Window& window) {
+
     if (!window.m_hWnd) {
         ERROR("SwapChain", "init", "Invalid Window handle (m_hWnd is nullptr)");
         return E_POINTER;
@@ -15,12 +17,13 @@ HRESULT SwapChain::init(Device& device,
 
     HRESULT hr = S_OK;
 
-    // Crear dispositivo y contexto
+    // Crear dispositivo y contexto DirectX 11
     unsigned int createDeviceFlags = 0;
 #ifdef _DEBUG
     createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
-#endif // _DEBUG
+#endif
 
+    // Tipos de driver a intentar
     D3D_DRIVER_TYPE driverTypes[] = {
         D3D_DRIVER_TYPE_HARDWARE,
         D3D_DRIVER_TYPE_WARP,
@@ -28,6 +31,7 @@ HRESULT SwapChain::init(Device& device,
     };
     unsigned int numDriverTypes = ARRAYSIZE(driverTypes);
 
+    // Niveles de característica de DirectX soportados
     D3D_FEATURE_LEVEL featureLevels[] = {
         D3D_FEATURE_LEVEL_11_0,
         D3D_FEATURE_LEVEL_10_1,
@@ -35,9 +39,9 @@ HRESULT SwapChain::init(Device& device,
     };
     unsigned int numFeatureLevels = ARRAYSIZE(featureLevels);
 
-    // Intentar crear el dispositivo con cada driver
-    for (unsigned int driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++) {
-        m_driverType = driverTypes[driverTypeIndex];
+    // Intentar crear el dispositivo con cada tipo de driver
+    for (unsigned int i = 0; i < numDriverTypes; i++) {
+        m_driverType = driverTypes[i];
         hr = D3D11CreateDevice(
             nullptr,
             m_driverType,
@@ -60,7 +64,7 @@ HRESULT SwapChain::init(Device& device,
         return hr;
     }
 
-    // Configurar MSAA
+    // Verificar compatibilidad con MSAA
     m_sampleCount = 4;
     hr = device.m_device->CheckMultisampleQualityLevels(DXGI_FORMAT_R8G8B8A8_UNORM, m_sampleCount, &m_qualityLevels);
     if (FAILED(hr) || m_qualityLevels == 0) {
@@ -68,7 +72,7 @@ HRESULT SwapChain::init(Device& device,
         return hr;
     }
 
-    // Configurar la descripción del SwapChain
+    // Configuración del SwapChain
     DXGI_SWAP_CHAIN_DESC sd = {};
     sd.BufferCount = 1;
     sd.BufferDesc.Width = window.m_width;
@@ -81,9 +85,9 @@ HRESULT SwapChain::init(Device& device,
     sd.Windowed = TRUE;
     sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
     sd.SampleDesc.Count = m_sampleCount;
-    sd.SampleDesc.Quality = m_qualityLevels - 1; // Máxima calidad
+    sd.SampleDesc.Quality = m_qualityLevels - 1;
 
-    // Obtener la fábrica DXGI
+    // Obtener interfaces DXGI
     hr = device.m_device->QueryInterface(__uuidof(IDXGIDevice), reinterpret_cast<void**>(&m_dxgiDevice));
     if (FAILED(hr)) {
         ERROR("SwapChain", "init", "Failed to query IDXGIDevice");
@@ -102,14 +106,14 @@ HRESULT SwapChain::init(Device& device,
         return hr;
     }
 
-    // Crear SwapChain
+    // Crear el SwapChain
     hr = m_dxgiFactory->CreateSwapChain(device.m_device, &sd, &m_swapchain);
     if (FAILED(hr)) {
         ERROR("SwapChain", "init", "Failed to create SwapChain");
         return hr;
     }
 
-    // Obtener el back buffer
+    // Obtener el back buffer como textura
     hr = m_swapchain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer.m_texture));
     if (FAILED(hr)) {
         ERROR("SwapChain", "init", "Failed to get SwapChain buffer");
@@ -119,12 +123,15 @@ HRESULT SwapChain::init(Device& device,
     return S_OK;
 }
 
+// Método vacío para lógica futura
 void SwapChain::update() {
 }
 
+// Método vacío para renderizar directamente desde el swapchain (opcional)
 void SwapChain::render() {
 }
 
+// Libera todos los recursos relacionados al SwapChain y DXGI
 void SwapChain::destroy() {
     SAFE_RELEASE(m_swapchain);
     SAFE_RELEASE(m_dxgiFactory);
@@ -132,6 +139,7 @@ void SwapChain::destroy() {
     SAFE_RELEASE(m_dxgiDevice);
 }
 
+// Presenta el frame actual en pantalla
 void SwapChain::present() {
     if (m_swapchain) {
         HRESULT hr = m_swapchain->Present(0, 0);

@@ -4,26 +4,26 @@
 class Device;
 class DeviceContext;
 
-class
-SamplerState {
+// Encapsula la creación y manejo de un Sampler State en DirectX 11.
+class SamplerState {
 public:
     SamplerState() = default;
     ~SamplerState() = default;
 
-    HRESULT
-    init(Device& device);
+    // Inicializa el sampler con configuración por defecto.
+    HRESULT init(Device& device);
 
-    void
-    update();
+    // Actualiza el estado interno del sampler (si aplica).
+    void update();
 
-    void
-    render(DeviceContext& deviceContext,
-            unsigned int StartSlot,
-            unsigned int NumSamplers);
+    // Establece el sampler en el pipeline de renderizado.
+    void render(DeviceContext& deviceContext,
+        unsigned int StartSlot,
+        unsigned int NumSamplers);
 
-    void
-    destroy();
+    // Libera los recursos del sampler.
+    void destroy();
 
 public:
-    ID3D11SamplerState* m_sampler = nullptr;
+    ID3D11SamplerState* m_sampler = nullptr; // Puntero al sampler de DirectX 11.
 };

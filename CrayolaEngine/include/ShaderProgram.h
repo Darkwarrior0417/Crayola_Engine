@@ -5,45 +5,45 @@
 class Device;
 class DeviceContext;
 
-class
-    ShaderProgram {
+// Encapsula la carga, compilación, y uso de shaders (vertex y pixel) en DirectX 11.
+class ShaderProgram {
 public:
     ShaderProgram() = default;
     ~ShaderProgram() = default;
 
-    HRESULT
-        init(Device& device,
-            const std::string& fileName,
-            std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
+    // Inicializa el shader program con archivo y layout de entrada.
+    HRESULT init(Device& device,
+        const std::string& fileName,
+        std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
-    void
-        update();
+    // Actualiza el estado interno del shader (si aplica).
+    void update();
 
-    void
-        render(DeviceContext& deviceContext);
+    // Asigna los shaders y layout al pipeline de renderizado.
+    void render(DeviceContext& deviceContext);
 
-    void
-        destroy();
+    // Libera los recursos del shader program.
+    void destroy();
 
-    HRESULT
-        CreateInputLayout(Device& device, std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
+    // Crea el input layout con base en la descripción del layout y shader compilado.
+    HRESULT CreateInputLayout(Device& device, std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
-    HRESULT
-        CreateShader(Device& device, ShaderType type);
+    // Crea un shader (vertex o pixel) según el tipo.
+    HRESULT CreateShader(Device& device, ShaderType type);
 
-    HRESULT
-        CompileShaderFromFile(char* szFileName,
-            LPCSTR szEntryPoint,
-            LPCSTR szShaderModel,
-            ID3DBlob** ppBlobOut);
-private:
+    // Compila un shader desde archivo.
+    HRESULT CompileShaderFromFile(char* szFileName,
+        LPCSTR szEntryPoint,
+        LPCSTR szShaderModel,
+        ID3DBlob** ppBlobOut);
+
 public:
-    ID3D11VertexShader* m_VertexShader = nullptr;
-    ID3D11PixelShader* m_PixelShader = nullptr;
-    InputLayout m_inputLayout;
+    ID3D11VertexShader* m_VertexShader = nullptr;   // Vertex Shader compilado
+    ID3D11PixelShader* m_PixelShader = nullptr;     // Pixel Shader compilado
+    InputLayout m_inputLayout;                      // Input layout usado por el vertex shader
 
 private:
-    std::string m_shaderFileName;
-    ID3DBlob* m_vertexShaderData = nullptr;
-    ID3DBlob* m_pixelShaderData = nullptr;
+    std::string m_shaderFileName;                   // Nombre del archivo .fx o .hlsl
+    ID3DBlob* m_vertexShaderData = nullptr;         // Datos compilados del vertex shader
+    ID3DBlob* m_pixelShaderData = nullptr;          // Datos compilados del pixel shader
 };

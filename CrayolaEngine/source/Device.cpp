@@ -1,26 +1,25 @@
 ﻿#include "Device.h"
 
-void
-Device::destroy() {
+/* @brief Libera los recursos del dispositivo. */
+void Device::destroy() {
     SAFE_RELEASE(m_device);
 }
 
-HRESULT
-Device::CreateRenderTargetView(ID3D11Resource* pResource,
+/* @brief Crea una Render Target View desde un recurso de textura. */
+HRESULT Device::CreateRenderTargetView(ID3D11Resource* pResource,
     const D3D11_RENDER_TARGET_VIEW_DESC* pDesc,
     ID3D11RenderTargetView** ppRTView) {
-    // Validar prametros de entrada
+
     if (!pResource) {
         ERROR("Device", "CreateRenderTargetView", "pResurce is nullptr");
-        return E_INVALIDARG; // Argumento Invalido
+        return E_INVALIDARG;
     }
 
     if (!ppRTView) {
         ERROR("Device", "CreateRenderTargetView", "ppRTView is nullptr");
-        return E_POINTER; // Puntero nulo
+        return E_POINTER;
     }
 
-    // Crear el Render Target View
     HRESULT hr = m_device->CreateRenderTargetView(pResource, pDesc, ppRTView);
 
     if (SUCCEEDED(hr)) {
@@ -34,10 +33,11 @@ Device::CreateRenderTargetView(ID3D11Resource* pResource,
     return hr;
 }
 
-HRESULT
-Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
+/* @brief Crea una textura 2D. */
+HRESULT Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
     const D3D11_SUBRESOURCE_DATA* pInitialData,
     ID3D11Texture2D** ppTexture2D) {
+
     if (!pDesc) {
         ERROR("Device", "CreateTexture2D", "pDesc is nullptr");
         return E_INVALIDARG;
@@ -60,10 +60,11 @@ Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
     return hr;
 }
 
-HRESULT
-Device::CreateDepthStencilView(ID3D11Resource* pResource,
+/* @brief Crea una Depth Stencil View. */
+HRESULT Device::CreateDepthStencilView(ID3D11Resource* pResource,
     const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc,
     ID3D11DepthStencilView** ppDepthStencilView) {
+
     if (!pResource) {
         ERROR("Device", "CreateDepthStencilView", "pResource is nullptr");
         return E_INVALIDARG;
@@ -86,11 +87,12 @@ Device::CreateDepthStencilView(ID3D11Resource* pResource,
     return hr;
 }
 
-HRESULT
-Device::CreateVertexShader(const void* pShaderBytecode,
+/* @brief Crea un Vertex Shader desde bytecode compilado. */
+HRESULT Device::CreateVertexShader(const void* pShaderBytecode,
     unsigned int BytecodeLength,
     ID3D11ClassLinkage* pClassLinkage,
     ID3D11VertexShader** ppVertexShader) {
+
     if (!pShaderBytecode) {
         ERROR("Device", "CreateVertexShader", "pShaderBytecode is nullptr");
         return E_INVALIDARG;
@@ -113,12 +115,13 @@ Device::CreateVertexShader(const void* pShaderBytecode,
     return hr;
 }
 
-HRESULT
-Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
+/* @brief Crea un Input Layout para describir el formato de los vértices. */
+HRESULT Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
     unsigned int NumElements,
     const void* pShaderBytecodeWithInputSignature,
     unsigned int BytecodeLength,
     ID3D11InputLayout** ppInputLayout) {
+
     if (!pInputElementDescs) {
         ERROR("Device", "CreateInputLayout", "pInputElementDescs is nullptr");
         return E_INVALIDARG;
@@ -141,11 +144,12 @@ Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
     return hr;
 }
 
-HRESULT
-Device::CreatePixelShader(const void* pShaderBytecode,
+/* @brief Crea un Pixel Shader desde bytecode compilado. */
+HRESULT Device::CreatePixelShader(const void* pShaderBytecode,
     unsigned int BytecodeLength,
     ID3D11ClassLinkage* pClassLinkage,
     ID3D11PixelShader** ppPixelShader) {
+
     if (!pShaderBytecode) {
         ERROR("Device", "CreatePixelShader", "pShaderBytecode is nullptr");
         return E_INVALIDARG;
@@ -168,10 +172,11 @@ Device::CreatePixelShader(const void* pShaderBytecode,
     return hr;
 }
 
-HRESULT
-Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
+/* @brief Crea un buffer (vertex, index o constante). */
+HRESULT Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
     const D3D11_SUBRESOURCE_DATA* pInitialData,
     ID3D11Buffer** ppBuffer) {
+
     if (!pDesc) {
         ERROR("Device", "CreateBuffer", "pDesc is nullptr");
         return E_INVALIDARG;
@@ -194,9 +199,10 @@ Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
     return hr;
 }
 
-HRESULT
-Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
+/* @brief Crea un Sampler State para control de muestreo de texturas. */
+HRESULT Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
     ID3D11SamplerState** ppSamplerState) {
+
     if (!pSamplerDesc) {
         ERROR("Device", "CreateSamplerState", "pSamplerDesc is nullptr");
         return E_INVALIDARG;
@@ -219,9 +225,10 @@ Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
     return hr;
 }
 
-HRESULT
-Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
+/* @brief Crea un Rasterizer State para controlar el modo de rasterización. */
+HRESULT Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
     ID3D11RasterizerState** ppRasterizerState) {
+
     if (!pRasterizerDesc) {
         ERROR("Device", "CreateRasterizerState", "pRasterizerDesc is nullptr");
         return E_INVALIDARG;
@@ -244,9 +251,10 @@ Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
     return hr;
 }
 
-HRESULT
-Device::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc,
+/* @brief Crea un Blend State para definir cómo se mezclan los colores al dibujar. */
+HRESULT Device::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc,
     ID3D11BlendState** ppBlendState) {
+
     if (!pBlendStateDesc) {
         ERROR("Device", "CreateBlendState", "pBlendStateDesc is nullptr");
         return E_INVALIDARG;

@@ -2,8 +2,8 @@
 #include "Window.h"
 #include "DeviceContext.h"
 
-HRESULT
-Viewport::init(const Window& window) {
+// Inicializa el viewport utilizando las dimensiones de una ventana existente
+HRESULT Viewport::init(const Window& window) {
     if (!window.m_hWnd) {
         ERROR("Viewport", "init", "Window handle (m_hWnd) is nullptr");
         return E_POINTER;
@@ -13,6 +13,7 @@ Viewport::init(const Window& window) {
         return E_INVALIDARG;
     }
 
+    // Configuración básica del viewport
     m_viewport.Width = static_cast<float>(window.m_width);
     m_viewport.Height = static_cast<float>(window.m_height);
     m_viewport.MinDepth = 0.0f;
@@ -23,12 +24,14 @@ Viewport::init(const Window& window) {
     return S_OK;
 }
 
+// Inicializa el viewport directamente a partir de valores de ancho y alto
 HRESULT Viewport::init(unsigned int width, unsigned int height) {
     if (width == 0 || height == 0) {
         ERROR("Viewport", "init", "Width or height is zero");
         return E_INVALIDARG;
     }
 
+    // Configuración del área de dibujo
     m_viewport.Width = static_cast<float>(width);
     m_viewport.Height = static_cast<float>(height);
     m_viewport.MinDepth = 0.0f;
@@ -39,10 +42,12 @@ HRESULT Viewport::init(unsigned int width, unsigned int height) {
     return S_OK;
 }
 
+// Método opcional para actualizar dinámicamente el viewport en tiempo de ejecución
 void Viewport::update() {
-    // M�todo vac�o, pero se puede usar para manejar cambios din�micos en el viewport
+    
 }
 
+// Establece el viewport en el contexto de renderizado activo
 void Viewport::render(DeviceContext& deviceContext) {
     if (!deviceContext.m_deviceContext) {
         ERROR("Viewport", "render", "DeviceContext is nullptr");
@@ -52,6 +57,7 @@ void Viewport::render(DeviceContext& deviceContext) {
     deviceContext.RSSetViewports(1, &m_viewport);
 }
 
+// Libera recursos asociados al viewport
 void Viewport::destroy() {
-    // No hay recursos din�micos que liberar, pero se mantiene el m�todo para futura expansi�n.
+   
 }

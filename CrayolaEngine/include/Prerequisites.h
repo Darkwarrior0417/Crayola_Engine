@@ -1,101 +1,119 @@
 ﻿#pragma once
-// Librerías STD
+
+// ─────────────────────────────────────────────
+// Librerías estándar (STD)
 #include <string>
 #include <sstream>
 #include <vector>
 #include <windows.h>
 #include <xnamath.h>
-//#include <memory>
-#include <thread>
+#include <thread> // Para funcionalidades con múltiples hilos
 
-// Librerías DirectX
+// ─────────────────────────────────────────────
+// Librerías de DirectX
 #include <d3d11.h>
 #include <d3dx11.h>
 #include <d3dcompiler.h>
 #include "Resource.h"
 #include "resource.h"
 
-//ImGui
+// ─────────────────────────────────────────────
+// Librerías ImGui (interfaz gráfica)
 #include <imgui.h>
 #include <imgui_impl_dx11.h>
 #include <imgui_internal.h>
 #include "imgui_impl_win32.h"
 
-// MACROS
+// ─────────────────────────────────────────────
+// Macros útiles
+
+// Libera memoria y pone el puntero en nullptr
 #define SAFE_RELEASE(x) if(x != nullptr) x->Release(); x = nullptr;
 
-#define MESSAGE( classObj, method, state )   \
-{                                            \
-   std::wostringstream os_;                  \
-   os_ << classObj << "::" << method << " : " << "[CREATION OF RESOURCE " << ": " << state << "] \n"; \
-   OutputDebugStringW( os_.str().c_str() );  \
+// Mensaje informativo de creación de recursos
+#define MESSAGE(classObj, method, state)                       \
+{                                                              \
+   std::wostringstream os_;                                    \
+   os_ << classObj << "::" << method << " : "                  \
+       << "[CREATION OF RESOURCE : " << state << "] \n";       \
+   OutputDebugStringW(os_.str().c_str());                      \
 }
 
-#define ERROR(classObj, method, errorMSG)                     \
-{                                                             \
-    try {                                                     \
-        std::wostringstream os_;                              \
-        os_ << L"ERROR : " << classObj << L"::" << method     \
-            << L" : " << errorMSG << L"\n";                   \
-        OutputDebugStringW(os_.str().c_str());                \
-    } catch (...) {                                           \
-        OutputDebugStringW(L"Not Loaded correctly");\
-    }                                                         \
+// Macro para mostrar errores con contexto
+#define ERROR(classObj, method, errorMSG)                      \
+{                                                              \
+    try {                                                      \
+        std::wostringstream os_;                               \
+        os_ << L"ERROR : " << classObj << L"::" << method      \
+            << L" : " << errorMSG << L"\n";                    \
+        OutputDebugStringW(os_.str().c_str());                 \
+    } catch (...) {                                            \
+        OutputDebugStringW(L"Not Loaded correctly");           \
+    }                                                          \
 }
 
-// Structures
-struct
-    SimpleVertex {
+// ─────────────────────────────────────────────
+// Estructuras
+
+// Vértice simple: posición y coordenada de textura
+struct SimpleVertex {
     XMFLOAT3 Pos;
     XMFLOAT2 Tex;
 };
 
-struct
-    CBNeverChanges {
+// Buffer constante que nunca cambia (ej. vista)
+struct CBNeverChanges {
     XMMATRIX mView;
 };
 
-struct
-    CBChangeOnResize {
+// Buffer que cambia cuando se redimensiona la ventana
+struct CBChangeOnResize {
     XMMATRIX mProjection;
 };
 
-struct
-    CBChangesEveryFrame {
+// Buffer que cambia cada frame (mundo y color)
+struct CBChangesEveryFrame {
     XMMATRIX mWorld;
     XMFLOAT4 vMeshColor;
 };
 
+// ─────────────────────────────────────────────
+// Enumeraciones
+
+// Tipos de extensión de imagen
 enum ExtensionType {
     DDS = 0,
     PNG = 1,
     JPG = 2
 };
 
+// Tipos de shader utilizados
 enum ShaderType {
     VERTEX_SHADER = 0,
     PIXEL_SHADER = 1
 };
 
-enum
-    ComponentType {
-    NONE = 0,     ///< Tipo de componente no especificado.
-    TRANSFORM = 1,///< Componente de transformación.
-    MESH = 2,     ///< Componente de malla.
-    MATERIAL = 3  ///< Componente de material.
+// Tipos de componentes dentro del sistema (entidades)
+enum ComponentType {
+    NONE = 0,      // No definido
+    TRANSFORM = 1, // Posición, rotación, escala
+    MESH = 2,      // Malla 3D
+    MATERIAL = 3   // Material o textura
 };
-struct
-    Camera {
-    XMFLOAT3 position;
-    XMFLOAT3 target;  // Punto al que mira
 
-    XMFLOAT3 up;      // Vector hacia arriba
-    XMFLOAT3 forward; // Dirección adelante
-    XMFLOAT3 right;   // Dirección a la derecha
+// ─────────────────────────────────────────────
+// Cámara con orientación en espacio 3D
+struct Camera {
+    XMFLOAT3 position;  // Posición de la cámara
+    XMFLOAT3 target;    // Hacia dónde está mirando
+    XMFLOAT3 up;        // Vector hacia arriba
+    XMFLOAT3 forward;   // Dirección hacia el frente
+    XMFLOAT3 right;     // Dirección hacia la derecha
 
-    float yaw;        // Rotación en el eje Y
-    float pitch;      // Rotación en el eje X
+    float yaw;          // Rotación horizontal (Y)
+    float pitch;        // Rotación vertical (X)
 
+    // Constructor con valores iniciales
     Camera() {
         position = XMFLOAT3(0.0f, 1.0f, -5.0f);
         target = XMFLOAT3(0.0f, 1.0f, 0.0f);

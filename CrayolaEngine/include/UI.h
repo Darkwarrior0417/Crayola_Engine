@@ -3,37 +3,61 @@
 
 class Window;
 
-
+/**
+ * @brief Encapsula el sistema de interfaz gráfica (UI) usando ImGui.
+ */
 class UI {
-
 public:
     UI() = default;
     ~UI() = default;
 
-    void
-        init(void* window, ID3D11Device* device, ID3D11DeviceContext* deviceContext);
+    /**
+     * @brief Inicializa ImGui con la ventana y los dispositivos de DirectX.
+     * @param window Puntero a la ventana Win32.
+     * @param device Dispositivo DirectX 11.
+     * @param deviceContext Contexto del dispositivo.
+     */
+    void init(void* window, ID3D11Device* device, ID3D11DeviceContext* deviceContext);
 
-    void
-        update();
+    /**
+     * @brief Actualiza la lógica interna de la UI por frame.
+     */
+    void update();
 
-    void
-        render();
+    /**
+     * @brief Renderiza todos los elementos visuales de la UI.
+     */
+    void render();
 
-    void
-        destroy();
+    /**
+     * @brief Libera los recursos utilizados por ImGui.
+     */
+    void destroy();
 
-    void
-        baseStyleGUI();
+    /**
+     * @brief Aplica un estilo base personalizado a la interfaz.
+     */
+    void baseStyleGUI();
 
-    void
-        renderWindow();
+    /**
+     * @brief Renderiza la ventana principal del sistema UI.
+     */
+    void renderWindow();
 
-    void
-        Inspector();
+    /**
+     * @brief Muestra el panel "Inspector" para ver/editar propiedades.
+     */
+    void Inspector();
 
-    void
-        vec3Control(std::string label,
-            float* value,
-            float resetValues = 0.0f,
-            float columnWidth = 100.0f);
+    /**
+     * @brief Control tipo vec3 interactivo con sliders y botón de reset.
+     * @param label Etiqueta del control.
+     * @param value Puntero al array de 3 floats (x, y, z).
+     * @param resetValues Valor al que se reinicia cada componente.
+     * @param columnWidth Ancho de la primera columna del layout.
+     */
+    void vec3Control(std::string label,
+        float* value,
+        float resetValues = 0.0f,
+        float columnWidth = 100.0f);
 };

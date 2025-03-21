@@ -2,13 +2,14 @@
 #include "Device.h"
 #include "DeviceContext.h"
 
-HRESULT
-SamplerState::init(Device& device) {
+// Inicializa el SamplerState con configuración básica de muestreo lineal
+HRESULT SamplerState::init(Device& device) {
     if (!device.m_device) {
         ERROR("SamplerState", "init", "Device is nullptr");
         return E_POINTER;
     }
 
+    // Configuración del sampler (filtro lineal, dirección wrap)
     D3D11_SAMPLER_DESC sampDesc = {};
     sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
     sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -18,6 +19,7 @@ SamplerState::init(Device& device) {
     sampDesc.MinLOD = 0;
     sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
+    // Crear el sampler state
     HRESULT hr = device.CreateSamplerState(&sampDesc, &m_sampler);
     if (FAILED(hr)) {
         ERROR("SamplerState", "init", "Failed to create SamplerState");
@@ -27,15 +29,16 @@ SamplerState::init(Device& device) {
     return S_OK;
 }
 
-void
-SamplerState::update() {
-    // No hay l�gica de actualizaci�n para un sampler en este caso.
+// Método vacío: el sampler no necesita actualización por ahora
+void SamplerState::update() {
+    // Nada que actualizar actualmente
 }
 
-void
-SamplerState::render(DeviceContext& deviceContext,
+// Asigna el sampler al pixel shader
+void SamplerState::render(DeviceContext& deviceContext,
     unsigned int StartSlot,
     unsigned int NumSamplers) {
+
     if (!m_sampler) {
         ERROR("SamplerState", "render", "SamplerState is nullptr");
         return;
@@ -44,8 +47,8 @@ SamplerState::render(DeviceContext& deviceContext,
     deviceContext.PSSetSamplers(StartSlot, NumSamplers, &m_sampler);
 }
 
-void
-SamplerState::destroy() {
+// Libera los recursos del sampler
+void SamplerState::destroy() {
     if (m_sampler) {
         SAFE_RELEASE(m_sampler);
     }
