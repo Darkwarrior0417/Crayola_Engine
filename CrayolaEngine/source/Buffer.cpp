@@ -3,6 +3,7 @@
 #include "DeviceContext.h"
 #include "MeshComponent.h"
 
+// Crea el buffer utilizando la descripción y los datos iniciales proporcionados.
 HRESULT
 Buffer::createBuffer(Device& device,
     D3D11_BUFFER_DESC& desc,
@@ -20,6 +21,7 @@ Buffer::createBuffer(Device& device,
     return S_OK;
 }
 
+// Inicializa el buffer como Vertex o Index buffer, usando los datos del MeshComponent.
 HRESULT
 Buffer::init(Device& device, const MeshComponent& mesh, unsigned int bindFlag) {
     if (!device.m_device) {
@@ -62,6 +64,7 @@ Buffer::init(Device& device, const MeshComponent& mesh, unsigned int bindFlag) {
 }
 
 
+// Inicializa el buffer como Constant Buffer con un tamaño específico.
 HRESULT
 Buffer::init(Device& device, unsigned int ByteWidth) {
     if (!device.m_device || ByteWidth == 0) {
@@ -79,7 +82,7 @@ Buffer::init(Device& device, unsigned int ByteWidth) {
 
     return createBuffer(device, desc, nullptr);
 }
-
+// Actualiza el contenido del buffer con nuevos datos.
 void
 Buffer::update(DeviceContext& deviceContext,
     unsigned int DstSubresource,
@@ -95,6 +98,7 @@ Buffer::update(DeviceContext& deviceContext,
     deviceContext.UpdateSubresource(m_buffer, DstSubresource, pDstBox, pSrcData, SrcRowPitch, SrcDepthPitch);
 }
 
+// Enlaza el buffer al pipeline de render según su tipo: Vertex, Index o Constant.
 void Buffer::render(DeviceContext& deviceContext,
     unsigned int StartSlot,
     unsigned int NumBuffers,
@@ -127,6 +131,7 @@ void Buffer::render(DeviceContext& deviceContext,
     }
 }
 
+// Libera los recursos del buffer y a Willy.
 void Buffer::destroy() {
     SAFE_RELEASE(m_buffer);
 }

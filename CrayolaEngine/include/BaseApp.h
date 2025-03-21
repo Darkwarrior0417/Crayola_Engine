@@ -51,12 +51,25 @@ public:
     void
     destroy();
 
+
+    /**
+     * @brief Mapea las acciones de entrada del usuario.
+     * @param deltaTime Tiempo entre frames.
+     */
     void
     inputActionMap(float deltaTime);
 
+    /**
+     * @brief Actualiza la posición y rotación de la cámara.
+     */
     void
     updateCamera();
 
+    /**
+     * @brief Rota la cámara usando el movimiento del mouse.
+     * @param mouseX Posición X del mouse.
+     * @param mouseY Posición Y del mouse.
+     */
     void
     rotateCamera(int mouseX, int mouseY);
 
@@ -70,10 +83,14 @@ public:
             int nCmdShow,
             WNDPROC wndproc);
 
+    /**
+     * @brief Maneja el redimensionamiento de la ventana.
+     */
     HRESULT
     resize(HWND hWnd, LPARAM lparam);
 
 public:
+    // Componentes base del motor
     Window                              m_window;
     Device                              m_device;
     DeviceContext                       m_deviceContext;
@@ -84,21 +101,29 @@ public:
     DepthStencilView                    m_depthStencilView;
     Viewport                            m_viewport;
     ShaderProgram                       m_shaderProgram;
+
+
+    // Buffers gráficos
     Buffer                              m_vertexBuffer;
     Buffer                              m_indexBuffer;
     Buffer                              m_neverChange;
     Buffer                              m_changeOnResize;
     Buffer                              m_changesEveryFrame;
+
+    // Texturas y estados
     Texture                             m_modelTexture;
     SamplerState						m_samplerState;
+    ID3D11SamplerState* g_pSamplerLinear = NULL;
+    
     UI                                  m_UI;
 
-    ID3D11SamplerState* g_pSamplerLinear = NULL;
+    // Transformaciones y color
     XMMATRIX                            m_modelMatrix;
     XMMATRIX                            m_View;
     XMMATRIX                            m_Projection;
     XMFLOAT4                            m_vMeshColor;
 
+    // Transformación del objeto / cámara
     XMFLOAT3 position;
     XMFLOAT3 rotation;
     XMFLOAT3 scale;
@@ -106,13 +131,14 @@ public:
 
     Camera m_camera;
 
+    // Input
     bool keys[256] = { false };
-  float sensitivity = 0.002f;
-  int lastX;
-  int lastY;
-  bool mouseLeftDown = false;
+    float sensitivity = 0.002f;
+    int lastX;
+    int lastY;
+    bool mouseLeftDown = false;
 
-
+    // Buffers constantes
     CBChangesEveryFrame cb;
     CBNeverChanges cbNeverChanges;
     CBChangeOnResize cbChangesOnResize;
