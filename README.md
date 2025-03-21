@@ -2,9 +2,13 @@
 CrayolaEngine es un motor de videojuegos desarrollado en C++ como parte del proyecto de uni del 8vo cuatrimestre de la carrera. Diseñado con una arquitectura modular, escalable y optimizada, este motor sirve como base educativa para comprender los fundamentos internos de los motores gráficos modernos y ser todos unos pros.
 
 🚀 Tecnologías Utilizadas
+
 Lenguaje: C++
+
 Entorno de Desarrollo: Microsoft Visual Studio 
+
 Gráficos: DirectX 11
+
 UI: ImGui (Docking + Ventanas Custom)
 
 🎯 Objetivo del Proyecto
