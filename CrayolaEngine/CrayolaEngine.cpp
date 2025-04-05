@@ -70,7 +70,7 @@ WndProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
     return 0;
 }
 int WINAPI
-wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow) {
+ wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLine, int nCmdShow) {
     // Inicializar la aplicación
     return g_app.run(hInstance, hPrevInstance, lpCmdLine, nCmdShow, WndProc);
 }

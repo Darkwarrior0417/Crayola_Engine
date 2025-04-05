@@ -1,7 +1,5 @@
 ﻿#include "BaseApp.h"
 
-BaseApp m_app;
-
 HRESULT
 BaseApp::init() {
     HRESULT hr = S_OK;
@@ -74,6 +72,9 @@ BaseApp::init() {
 
     if (FAILED(hr))
         return hr;
+
+    // Load Model
+    m_modelLoader.LoadFBX_model("Models/Lethal.fbx");
 
     // Create vertex buffer
     SimpleVertex
@@ -268,7 +269,6 @@ BaseApp::update() {
 
 }
 
-
 void
 BaseApp::render() {
     // Clear the back buffer
@@ -300,7 +300,6 @@ BaseApp::render() {
     m_modelTexture.render(m_deviceContext, 0, 1);
     m_samplerState.render(m_deviceContext, 0, 1);
     m_deviceContext.PSSetSamplers(0, 1, &g_pSamplerLinear);
-
 
     // Draw
     m_deviceContext.DrawIndexed(36, 0, 0);

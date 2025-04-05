@@ -110,6 +110,9 @@
     <ClInclude Include="imgui\imgui-docking\imstb_truetype.h">
       <Filter>Imgui\Include</Filter>
     </ClInclude>
+    <ClInclude Include="include\ModelLoader.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CrayolaEngine.cpp" />
@@ -174,6 +177,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="source\UI.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModelLoader.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -13,6 +13,7 @@
 #include "MeshComponent.h"
 #include "SamplerState.h"
 #include "UI.h"
+#include "ModelLoader.h"
 
 class 
 BaseApp {
@@ -116,6 +117,7 @@ public:
     ID3D11SamplerState* g_pSamplerLinear = NULL;
     
     UI                                  m_UI;
+    ModelLoader                         m_modelLoader;
 
     // Transformaciones y color
     XMMATRIX                            m_modelMatrix;
