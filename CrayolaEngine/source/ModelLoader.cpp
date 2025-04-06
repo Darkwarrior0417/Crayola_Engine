@@ -23,51 +23,58 @@ ModelLoader::InitializeFBXManager() {
 
 bool
 ModelLoader::LoadFBX_model(const std::string& filePath) {
-	// Inicializa el administrador de FBX
+	OutputDebugStringA("Iniciando carga del modelo FBX...\n");
+
 	if (InitializeFBXManager()) {
-		// Crea un importador usando el administrador del SDK
+		OutputDebugStringA(" FBX Manager inicializado correctamente.\n");
+
 		FbxImporter* lImporter = FbxImporter::Create(lSdkManager, "");
 
-		// Usa la ruta del archivo como entrada del importador
 		if (!lImporter->Initialize(filePath.c_str(), -1, lSdkManager->GetIOSettings())) {
+			OutputDebugStringA(" Error en Initialize del FBX Importer.\n");
+			OutputDebugStringA(lImporter->GetStatus().GetErrorString());
 			ERROR("ModelLoader", "LoadFBXModel", "No se pudo inicializar el importador FBX para el archivo: " << filePath.c_str());
-			ERROR("ModelLoader", "LoadFBXModel", "Error devuelto: " << lImporter->GetStatus().GetErrorString());
+			lImporter->Destroy();
 			return false;
 		}
 
-		// Importa la escena
+		OutputDebugStringA(" FBX Importer inicializado.\n");
+
 		if (!lImporter->Import(lScene)) {
+			OutputDebugStringA(" Error al importar la escena FBX.\n");
 			ERROR("ModelLoader", "lImporter->Import", "No se pudo importar la escena FBX desde el archivo: " << filePath.c_str());
 			lImporter->Destroy();
 			return false;
 		}
 
-		// Destruye el importador
+		OutputDebugStringA(" Escena FBX importada.\n");
 		lImporter->Destroy();
-		MESSAGE("ModelLoader", "LoadFBXModel", "Escena FBX importada exitosamente desde: " << filePath.c_str());
 
-		// Procesa la escena
 		FbxNode* lRootNode = lScene->GetRootNode();
-
 		if (lRootNode) {
+			OutputDebugStringA(" Procesando nodos de la escena...\n");
 			for (int i = 0; i < lRootNode->GetChildCount(); i++) {
 				ProcessFBXNode(lRootNode->GetChild(i));
 			}
 		}
 
-		// Procesa los materiales
 		int materialCount = lScene->GetMaterialCount();
+		OutputDebugStringA(" Procesando materiales...\n");
 		for (int i = 0; i < materialCount; i++) {
 			FbxSurfaceMaterial* material = lScene->GetMaterial(i);
 			ProcessFBXMaterials(material);
 		}
+
+		OutputDebugStringA(" Modelo FBX cargado exitosamente.\n");
+		return true;
 	}
 	else {
+		OutputDebugStringA(" No se pudo inicializar el FBX Manager.\n");
 		ERROR("ModelLoader", "LoadFBXModel", "Fallo al inicializar el administrador de FBX.");
 		return false;
 	}
-	return false;
 }
+
 
 void
 ModelLoader::ProcessFBXNode(FbxNode* node) {

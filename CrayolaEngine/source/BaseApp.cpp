@@ -74,7 +74,14 @@ BaseApp::init() {
         return hr;
 
     // Load Model
-    m_modelLoader.LoadFBX_model("Models/Lethal.fbx");
+    this->m_modelLoader.InitializeFBXManager(); // <-- Esto inicializa correctamente el FBX SDK
+    if (!this->m_modelLoader.LoadFBX_model("Models/LethalGuy.fbx")) {
+        OutputDebugStringA("Error al cargar el modelo FBX\n");
+    }
+    else {
+        OutputDebugStringA("Modelo FBX cargado correctamente\n");
+    }
+
 
     // Create vertex buffer
     SimpleVertex
