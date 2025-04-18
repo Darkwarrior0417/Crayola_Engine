@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * MIT License
  *
  * Copyright (c) 2024 Roberto Charreton
@@ -28,7 +28,7 @@
 */
 #pragma once
 
-#include "Utilities/EngineMath.h"
+#include "utilities/EngineMath.h"
 namespace EngineUtilities {
 	/**
  * @brief A 3D vector class.
@@ -113,7 +113,23 @@ namespace EngineUtilities {
 			return Vector3(x / mag, y / mag, z / mag);
 		}
 
-		// Método para obtener un puntero a los datos como un arreglo
+		/**
+		 * @brief Sets the x, y and z values in 1
+		 */
+		void
+			oneVal() {
+			Vector3(1, 1, 1);
+		}
+
+		/**
+		 * @brief Sets the x, y and z values in 0
+		 */
+		void
+			zeroVal() {
+			Vector3(0, 0, 0);
+		}
+
+		// Mï¿½todo para obtener un puntero a los datos como un arreglo
 		// @return: Puntero a los componentes del vector
 		float* data() { return &x; }
 		const float* data() const { return &x; }

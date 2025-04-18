@@ -18,11 +18,22 @@ DeviceContext::RSSetViewports(unsigned int NumViewports,
 void
 DeviceContext::PSSetShaderResources(unsigned int StartSlot,
 	unsigned int NumViews,
-	ID3D11ShaderResourceView* const* ppShaderResourceViews) {
+	ID3D11ShaderResourceView* const* ppShaderResourceViews)
+{
 	if (!ppShaderResourceViews) {
 		ERROR("DeviceContext", "PSSetShaderResources", "ppShaderResourceViews is nullptr");
 		return;
 	}
+
+	// Validar que ninguna vista individual esté en nullptr
+	for (unsigned int i = 0; i < NumViews; ++i) {
+		if (ppShaderResourceViews[i] == nullptr) {
+			std::string msg = "ShaderResourceView at index " + std::to_string(i) + " is nullptr";
+			ERROR("DeviceContext", "PSSetShaderResources", msg.c_str());
+			return;
+		}
+	}
+
 	m_deviceContext->PSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews);
 }
 

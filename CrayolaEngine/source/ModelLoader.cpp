@@ -75,7 +75,6 @@ ModelLoader::LoadFBX_model(const std::string& filePath) {
 	}
 }
 
-
 void
 ModelLoader::ProcessFBXNode(FbxNode* node) {
 	// Procesa todos los meshes del nodo
@@ -91,86 +90,72 @@ ModelLoader::ProcessFBXNode(FbxNode* node) {
 	}
 }
 
-void
-ModelLoader::ProcessFBXMesh(FbxNode* node) {
-	// Obtiene el mesh del nodo. Si no hay mesh, sale de la función.
+void ModelLoader::ProcessFBXMesh(FbxNode* node) {
 	FbxMesh* mesh = node->GetMesh();
 	if (!mesh) return;
 
-	std::vector<SimpleVertex> vertices;
-	std::vector<unsigned int> indices;
+	std::vector<std::pair<int, std::vector<SimpleVertex>>> materialToVertices;
+	std::vector<std::pair<int, std::vector<unsigned int>>> materialToIndices;
 
-	// Procesa vértices: extrae posiciones desde los puntos de control.
-	for (int i = 0; i < mesh->GetControlPointsCount(); i++) {
-		SimpleVertex vertex;
-		FbxVector4* controlPoint = mesh->GetControlPoints();
-		vertex.Pos = XMFLOAT3((float)controlPoint[i][0],
-			(float)controlPoint[i][1],
-			(float)controlPoint[i][2]);
-		vertices.push_back(vertex);
-	}
+	FbxGeometryElementUV* uvElement = mesh->GetElementUV(0);
+	FbxGeometryElementMaterial* matElement = mesh->GetElementMaterial();
 
-	// Procesa coordenadas UV si están disponibles.
-	if (mesh->GetElementUVCount() > 0) {
-		FbxGeometryElementUV* uvElement = mesh->GetElementUV(0);
-		FbxGeometryElement::EMappingMode mappingMode = uvElement->GetMappingMode();
-		FbxGeometryElement::EReferenceMode referenceMode = uvElement->GetReferenceMode();
-		int polyIndexCounter = 0; // Contador para índices de vértices de polígonos.
+	int polyCounter = 0;
 
-		// Itera por cada polígono del mesh.
-		for (int polyIndex = 0; polyIndex < mesh->GetPolygonCount(); polyIndex++) {
-			int polySize = mesh->GetPolygonSize(polyIndex);
+	for (int polyIndex = 0; polyIndex < mesh->GetPolygonCount(); ++polyIndex) {
+		int materialIndex = 0;
+		if (matElement && matElement->GetMappingMode() == FbxGeometryElement::eByPolygon) {
+			materialIndex = matElement->GetIndexArray().GetAt(polyIndex);
+		}
 
-			// Procesa cada vértice del polígono.
-			for (int vertIndex = 0; vertIndex < polySize; vertIndex++) {
-				int controlPointIndex = mesh->GetPolygonVertex(polyIndex, vertIndex);
-				int uvIndex = -1;
-
-				// Mapeo UV por punto de control
-				if (mappingMode == FbxGeometryElement::eByControlPoint) {
-					if (referenceMode == FbxGeometryElement::eDirect) {
-						uvIndex = controlPointIndex;
-					}
-					else if (referenceMode == FbxGeometryElement::eIndexToDirect) {
-						uvIndex = uvElement->GetIndexArray().GetAt(controlPointIndex);
-					}
-				}
-				// Mapeo UV por vértice de polígono
-				else if (mappingMode == FbxGeometryElement::eByPolygonVertex) {
-					if (referenceMode == FbxGeometryElement::eDirect || referenceMode == FbxGeometryElement::eIndexToDirect) {
-						uvIndex = uvElement->GetIndexArray().GetAt(polyIndexCounter);
-						polyIndexCounter++;
-					}
-				}
-
-				// Si se encuentra un índice UV válido, se asigna la coordenada de textura.
-				if (uvIndex != -1) {
-					FbxVector2 uv = uvElement->GetDirectArray().GetAt(uvIndex);
-					vertices[controlPointIndex].Tex = XMFLOAT2((float)uv[0], -(float)uv[1]);
-				}
+		// Buscar si ya hay una entrada para este material
+		size_t matPos = 0;
+		bool found = false;
+		for (; matPos < materialToVertices.size(); ++matPos) {
+			if (materialToVertices[matPos].first == materialIndex) {
+				found = true;
+				break;
 			}
 		}
-	}
+		if (!found) {
+			materialToVertices.push_back({ materialIndex, {} });
+			materialToIndices.push_back({ materialIndex, {} });
+			matPos = materialToVertices.size() - 1;
+		}
 
-	// Procesa índices: almacena cada índice de vértice del polígono.
-	for (int i = 0; i < mesh->GetPolygonCount(); i++) {
-		for (int j = 0; j < mesh->GetPolygonSize(i); j++) {
-			indices.push_back(mesh->GetPolygonVertex(i, j));
+		for (int vertIndex = 0; vertIndex < mesh->GetPolygonSize(polyIndex); ++vertIndex) {
+			int ctrlPointIndex = mesh->GetPolygonVertex(polyIndex, vertIndex);
+
+			FbxVector4 pos = mesh->GetControlPointAt(ctrlPointIndex);
+			SimpleVertex vertex;
+			vertex.Pos = XMFLOAT3((float)pos[0], (float)pos[1], (float)pos[2]);
+
+			if (uvElement && uvElement->GetMappingMode() == FbxGeometryElement::eByPolygonVertex) {
+				int uvIndex = uvElement->GetIndexArray().GetAt(polyCounter);
+				FbxVector2 uv = uvElement->GetDirectArray().GetAt(uvIndex);
+				vertex.Tex = XMFLOAT2((float)uv[0], -(float)uv[1]);
+			}
+
+			materialToVertices[matPos].second.push_back(vertex);
+			materialToIndices[matPos].second.push_back((unsigned int)(materialToVertices[matPos].second.size() - 1));
+
+			polyCounter++;
 		}
 	}
 
-	// Crea un MeshComponent para guardar los datos procesados del mesh.
-	MeshComponent meshData;
-	meshData.m_name = node->GetName();
-	meshData.m_vertex = vertices;
-	meshData.m_index = indices;
-	meshData.m_numVertex = vertices.size();
-	meshData.m_numIndex = indices.size();
+	// Convertir cada par en un submesh
+	for (size_t i = 0; i < materialToVertices.size(); ++i) {
+		MeshComponent meshData;
+		meshData.m_name = node->GetName() + std::string("_material_") + std::to_string(materialToVertices[i].first);
+		meshData.m_vertex = materialToVertices[i].second;
+		meshData.m_index = materialToIndices[i].second;
+		meshData.m_numVertex = (unsigned int)meshData.m_vertex.size();
+		meshData.m_numIndex = (unsigned int)meshData.m_index.size();
 
-	// Agrega los datos procesados a la colección.
-	m_meshes.push_back(meshData);
+		m_meshes.push_back(meshData);
+		MESSAGE("ModelLoader", "Submesh", ("Submesh creado: " + meshData.m_name).c_str());
+	}
 }
-
 void
 ModelLoader::ProcessFBXMaterials(FbxSurfaceMaterial* material) {
 	if (material) {

@@ -431,6 +431,7 @@
     <ClCompile Include="imgui\imgui-docking\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui-docking\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui-docking\imgui_widgets.cpp" />
+    <ClCompile Include="source\Actor.cpp" />
     <ClCompile Include="source\BaseApp.cpp" />
     <ClCompile Include="source\Buffer.cpp" />
     <ClCompile Include="source\DepthStencilView.cpp" />
@@ -443,6 +444,7 @@
     <ClCompile Include="source\ShaderProgram.cpp" />
     <ClCompile Include="source\Swapchain.cpp" />
     <ClCompile Include="source\Texture.cpp" />
+    <ClCompile Include="source\Transform.cpp" />
     <ClCompile Include="source\UI.cpp" />
     <ClCompile Include="source\Viewport.cpp" />
     <ClCompile Include="source\Window.cpp" />
@@ -467,7 +469,6 @@
     <ClInclude Include="include\DeviceContext.h" />
     <ClInclude Include="include\ECS\Actor.h" />
     <ClInclude Include="include\ECS\Component.h" />
-    <ClInclude Include="include\ECS\EngineMath.h" />
     <ClInclude Include="include\ECS\Entity.h" />
     <ClInclude Include="include\ECS\Transform.h" />
     <ClInclude Include="include\InputLayout.h" />
@@ -481,7 +482,9 @@
     <ClInclude Include="include\stb_image.h" />
     <ClInclude Include="include\Swapchain.h" />
     <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\Transform.h" />
     <ClInclude Include="include\UI.h" />
+    <ClInclude Include="include\Utilities\EngineMath.h" />
     <ClInclude Include="include\Utilities\Matrix\Matrix2x2.h" />
     <ClInclude Include="include\Utilities\Matrix\Matrix3x3.h" />
     <ClInclude Include="include\Utilities\Matrix\Matrix4x4.h" />

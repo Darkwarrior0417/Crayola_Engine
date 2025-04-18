@@ -1,5 +1,6 @@
 #pragma once
 #include "Prerequisites.h"
+#include "ECS/Transform.h"
 
 class Window;
 
@@ -39,6 +40,8 @@ public:
      */
     void baseStyleGUI();
 
+    void TransformGUI(Transform& transform);
+
     /**
      * @brief Renderiza la ventana principal del sistema UI.
      */
@@ -56,8 +59,9 @@ public:
      * @param resetValues Valor al que se reinicia cada componente.
      * @param columnWidth Ancho de la primera columna del layout.
      */
-    void vec3Control(std::string label,
-        float* value,
+    void vec3Control(const std::string& label,
+        float* values,
         float resetValues = 0.0f,
         float columnWidth = 100.0f);
+
 };

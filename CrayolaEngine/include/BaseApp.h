@@ -14,6 +14,7 @@
 #include "SamplerState.h"
 #include "UI.h"
 #include "ModelLoader.h"
+#include "ECS/Actor.h"
 
 class 
 BaseApp {
@@ -105,8 +106,8 @@ public:
 
 
     // Buffers gráficos
-    Buffer                              m_vertexBuffer;
-    Buffer                              m_indexBuffer;
+        /*Buffer                              m_vertexBuffer;
+        Buffer                              m_indexBuffer;*/
     Buffer                              m_neverChange;
     Buffer                              m_changeOnResize;
     Buffer                              m_changesEveryFrame;
@@ -117,19 +118,28 @@ public:
     ID3D11SamplerState* g_pSamplerLinear = NULL;
     
     UI                                  m_UI;
+
     ModelLoader                         m_modelLoader;
+    EngineUtilities::TSharedPointer<Actor>         ALethal;
+    std::vector<Texture>                            m_modelTextures;
+
+    Texture m_default;
+
+    ModelLoader                         m_modelLoader2;
+    EngineUtilities::TSharedPointer<Actor>          AStorm;
+    std::vector<Texture>                            m_modelTextures2;
 
     // Transformaciones y color
-    XMMATRIX                            m_modelMatrix;
+    /*XMMATRIX                            m_modelMatrix;*/
     XMMATRIX                            m_View;
     XMMATRIX                            m_Projection;
     XMFLOAT4                            m_vMeshColor;
 
     // Transformación del objeto / cámara
-    XMFLOAT3 position;
+   /* XMFLOAT3 position;
     XMFLOAT3 rotation;
-    XMFLOAT3 scale;
-    MeshComponent m_meshComponent;
+    XMFLOAT3 scale;*/
+    /*MeshComponent m_meshComponent;*/
 
     Camera m_camera;
 

@@ -24,6 +24,12 @@
 #include <imgui_internal.h>
 #include "imgui_impl_win32.h"
 
+// Third parties
+#include "utilities/Memory/TSharedPointer.h"
+#include "utilities/Memory/TWeakPointer.h"
+#include "utilities/Memory/TStaticPtr.h"
+#include "utilities/Memory/TUniquePtr.h"
+
 // ─────────────────────────────────────────────
 // Macros útiles
 

@@ -1,20 +1,14 @@
 ﻿#pragma once
-class DeviceContext;
+#include "Prerequisites.h"
 
+class DeviceContext;
 
 /**
  * @class Component
- * @brief Clase base abstracta para todos los componentes del juego.
- *
- * La clase Component define la interfaz b�sica que todos los componentes deben implementar,
- * permitiendo actualizar y renderizar el componente, as� como obtener su tipo.
+ * @brief Clase base abstracta para todos los componentes del sistema.
  */
-class
-    Component {
+class Component {
 public:
-    /**
-     * @brief Constructor por defecto.
-     */
     Component() = default;
 
     /**
@@ -23,32 +17,25 @@ public:
      */
     Component(const ComponentType type) : m_type(type) {}
 
-    /**
-     * @brief Destructor virtual.
-     */
-    virtual
-        ~Component() = default;
+    virtual ~Component() = default;
 
     /**
-     * @brief M�todo virtual puro para actualizar el componente.
-     * @param deltaTime El tiempo transcurrido desde la �ltima actualizaci�n.
+     * @brief Método virtual puro para actualizar el componente.
+     * @param deltaTime Tiempo transcurrido desde la última actualización.
      */
-    virtual void
-        update(float deltaTime) = 0;
+    virtual void update(float deltaTime) = 0;
 
     /**
-     * @brief M�todo virtual puro para renderizar el componente.
-     * @param deviceContext Contexto del dispositivo para operaciones gr�ficas.
+     * @brief Método virtual puro para renderizar el componente.
+     * @param deviceContext Contexto del dispositivo para operaciones gráficas.
      */
-    virtual void
-        render(DeviceContext& deviceContext) = 0;
+    virtual void render(DeviceContext& deviceContext) = 0;
 
     /**
      * @brief Obtiene el tipo del componente.
      * @return El tipo del componente.
      */
-    ComponentType
-        getType() const { return m_type; }
+    ComponentType getType() const { return m_type; }
 
 protected:
     ComponentType m_type; ///< Tipo del componente.
