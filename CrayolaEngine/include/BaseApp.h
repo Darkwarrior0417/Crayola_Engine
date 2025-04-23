@@ -129,6 +129,10 @@ public:
     EngineUtilities::TSharedPointer<Actor>          AStorm;
     std::vector<Texture>                            m_modelTextures2;
 
+    ModelLoader                         m_modelLoader3;
+    EngineUtilities::TSharedPointer<Actor>          AChaos;
+    std::vector<Texture>                            m_modelTextures3;
+
     // Transformaciones y color
     /*XMMATRIX                            m_modelMatrix;*/
     XMMATRIX                            m_View;

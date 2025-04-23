@@ -3,36 +3,47 @@
 #include "MeshComponent.h"
 #include "fbxsdk.h"
 
-class
-	ModelLoader
-{
+// Estructura auxiliar para representar datos crudos de un modelo OBJ
+struct LoadDataOBJ {
+	std::string name;
+	std::vector<SimpleVertex> vertex;
+	std::vector<unsigned int> index;
+	int numVertex = 0;
+	int numIndex = 0;
+};
+
+class ModelLoader {
 public:
 	ModelLoader() = default;
 	~ModelLoader() = default;
 
-	bool
-	InitializeFBXManager();
+	// Inicializa el manejador FBX
+	bool InitializeFBXManager();
 
-	bool
-	LoadFBX_model(const std::string& filenpath);
+	// Carga modelo FBX
+	bool LoadFBX_model(const std::string& filenpath);
 
-	void
-	ProcessFBXNode(FbxNode* node);
+	// Procesa nodos y mallas FBX
+	void ProcessFBXNode(FbxNode* node);
+	void ProcessFBXMesh(FbxNode* node);
+	void ProcessFBXMaterials(FbxSurfaceMaterial* material);
 
-	void
-	ProcessFBXMesh(FbxNode* node);
+	// Obtiene nombres de texturas de materiales FBX
+	std::vector<std::string> GetTextureFileNames() const { return textureFileNames; };
 
-	void
-	ProcessFBXMaterials(FbxSurfaceMaterial* material);
+	// Carga modelo OBJ en m_meshes directamente
+	bool LoadOBJ_model(const std::string& filePath);
 
-	std::vector<std::string>
-	GetTextureFileNames() const { return textureFileNames; };
-
-private:
-	FbxManager* lSdkManager;
-	FbxScene* lScene;
-	std::vector<std::string> textureFileNames;
+	// Alternativa: carga modelo OBJ y devuelve los datos crudos
+	LoadDataOBJ LoadOBJ(std::string objFileName);
 
 public:
+	// Meshes procesadas del modelo (FBX u OBJ)
 	std::vector<MeshComponent> m_meshes;
+
+private:
+	// Internos del SDK FBX
+	FbxManager* lSdkManager = nullptr;
+	FbxScene* lScene = nullptr;
+	std::vector<std::string> textureFileNames;
 };

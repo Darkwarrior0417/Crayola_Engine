@@ -282,10 +282,57 @@
             ERROR("Actor", "AStorm", "Failed to create actor.");
         }
 
+        // -------------------- Peely --------------------
+        // Carga un modelo en formato .OBJ usando el cargador OBJ_Loader encapsulado en ModelLoader.
+        // El modelo corresponde al personaje "Peely" (Banana.obj).
+        m_modelLoader3.LoadOBJ_model("Models/Banana.obj");
+        if (m_modelLoader3.m_meshes.empty()) {
+            ERROR("Peely", "ModelLoader", "Banana.obj no contiene mallas.");
+        }
+        else {
+            MESSAGE("Peely", "ModelLoader", ("Cantidad de mallas cargadas: " + std::to_string(m_modelLoader3.m_meshes.size())).c_str());
+        }
+
+        // Validar que sí se hayan cargado meshes
+        MESSAGE("ModelLoader", "Chaos", ("Meshes loaded: " + std::to_string(m_modelLoader3.m_meshes.size())).c_str());
+
+        // Limpiar el vector de texturas para evitar duplicados
+        m_modelTextures3.clear();
+
+        // Asignar textura Peely a cada submesh
+        for (size_t i = 0; i < m_modelLoader3.m_meshes.size(); ++i) {
+            Texture chaosTex;
+            HRESULT texResult = chaosTex.init(m_device, "Textures/Peelybanana.png", PNG);
+
+            if (FAILED(texResult)) {
+                ERROR("Texture", "Peelybanana", "Failed to load texture for submesh.");
+            }
+
+            m_modelTextures3.push_back(chaosTex);
+        }
+        // Creación del Actor AChaos (representa a Peely en la escena)
+        AChaos = EngineUtilities::MakeShared<Actor>(m_device);
+        if (!AChaos.isNull()) {
+            AChaos->getComponent<Transform>()->setTransform(
+                { -8.0, -3.0f, 0.5f },      // Posición
+                { XM_PI / -1.0f, 0.0f, XM_PI }, // Rotación (en radianes)
+                { 0.05f, 0.05f, 0.05f }      // Escala (muy pequeña)
+            );
+            // Se asignan las mallas procesadas desde el .OBJ al actor
+            AChaos->setMesh(m_device, m_modelLoader3.m_meshes);
+            // Se asignan las texturas a cada submesh del actor
+            AChaos->setTextures(m_modelTextures3);
+
+            MESSAGE("Actor", "AChaos", (AChaos->getName() + " - Actor accessed successfully.").c_str());
+        }
+        else {
+            ERROR("Actor", "AChaos", "Failed to create actor.");
+        }
+
         return S_OK;  
     }  
     void
-        BaseApp::update() {
+    BaseApp::update() {
         // Actualiza el UI
         m_UI.update();
 
@@ -308,6 +355,14 @@
             m_UI.TransformGUI(*AStorm->getComponent<Transform>());
             // Actualizar lógica interna
             AStorm->update(0, m_deviceContext);
+        }
+
+        // -------------------- Peely --------------------
+        if (!AChaos.isNull()) {
+            // Mostrar y editar transform en el UI
+            m_UI.TransformGUI(*AChaos->getComponent<Transform>());
+            // Actualizar lógica interna
+            AChaos->update(0, m_deviceContext);
         }
 
         // -------------------- Tiempo --------------------
@@ -387,6 +442,8 @@
         // Render the models
         ALethal->render(m_deviceContext);
         AStorm->render(m_deviceContext);
+        AChaos->render(m_deviceContext);
+
 
         // Set Constant Buffers and assign Shaders
         // g_deviceContext.m_deviceContext->VSSetShader(g_pVertexShader, NULL, 0);

@@ -9,54 +9,53 @@ BaseApp                              g_app;
 // loop. Idle time is used to render the scene.
 //--------------------------------------------------------------------------------------
 
+LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam); // Forward declaration para ImGui
+
 LRESULT CALLBACK
 WndProc(HWND hWnd, unsigned int message, WPARAM wParam, LPARAM lParam) {
 
-
-    PAINTSTRUCT ps;
-    HDC hdc;
+    // Para evitar que ImGui interfiera con el mouse
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam)) {
+        return true;
+    }
 
     switch (message) {
     case WM_PAINT:
-        // Evento de repintado de ventana
-        hdc = BeginPaint(hWnd, &ps);
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);
-        break;
+    }
+    break;
 
     case WM_SIZE:
-        // Evento de redimensionamiento de ventana
         g_app.resize(hWnd, lParam);
         break;
 
     case WM_DESTROY:
-        // Cerrar la aplicación
         PostQuitMessage(0);
         break;
 
     case WM_KEYDOWN:
-        // Tecla presionada
         g_app.keys[wParam] = true;
         break;
 
     case WM_KEYUP:
-         // Tecla liberada
         g_app.keys[wParam] = false;
         break;
 
     case WM_LBUTTONDOWN:
-        // Botón izquierdo del mouse presionado
         g_app.mouseLeftDown = true;
+        g_app.lastX = LOWORD(lParam);
+        g_app.lastY = HIWORD(lParam);
         break;
 
     case WM_LBUTTONUP:
-        // Botón izquierdo del mouse liberado
         g_app.mouseLeftDown = false;
         break;
 
     case WM_MOUSEMOVE:
-
-        // Movimiento del mouse mientras se mantiene presionado el botón izquierdo
-        if (g_app.mouseLeftDown) {
+        if (!ImGui::GetIO().WantCaptureMouse && g_app.mouseLeftDown) {
             int mouseX = LOWORD(lParam);
             int mouseY = HIWORD(lParam);
             g_app.rotateCamera(mouseX, mouseY);

@@ -194,6 +194,9 @@
     <ClInclude Include="include\Transform.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\OBJ_Loader.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CrayolaEngine.cpp" />

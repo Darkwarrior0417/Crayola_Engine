@@ -1,4 +1,5 @@
 #include "ModelLoader.h"
+#include "OBJ_Loader.h"
 
 bool
 ModelLoader::InitializeFBXManager() {
@@ -74,7 +75,38 @@ ModelLoader::LoadFBX_model(const std::string& filePath) {
 		return false;
 	}
 }
+bool ModelLoader::LoadOBJ_model(const std::string& filePath) {
+	objl::Loader loader;
+	if (!loader.LoadFile(filePath)) {
+		ERROR("ModelLoader", "LoadOBJ_model", "No se pudo cargar el archivo OBJ: " << filePath.c_str());
+		return false;
+	}
 
+	m_meshes.clear();
+
+	for (const auto& mesh : loader.LoadedMeshes) {
+		MeshComponent meshData;
+		meshData.m_name = mesh.MeshName;
+
+		// Convertir vértices
+		for (const auto& v : mesh.Vertices) {
+			SimpleVertex sv;
+			sv.Pos = XMFLOAT3(v.Position.X, v.Position.Y, v.Position.Z);
+			sv.Tex = XMFLOAT2(v.TextureCoordinate.X, -v.TextureCoordinate.Y); // invertir eje Y de textura
+			meshData.m_vertex.push_back(sv);
+		}
+
+		// Convertir índices
+		meshData.m_index = mesh.Indices;
+		meshData.m_numVertex = meshData.m_vertex.size();
+		meshData.m_numIndex = meshData.m_index.size();
+
+		m_meshes.push_back(meshData);
+		MESSAGE("ModelLoader", "OBJ", ("Submesh OBJ: " + meshData.m_name).c_str());
+	}
+
+	return true;
+}
 void
 ModelLoader::ProcessFBXNode(FbxNode* node) {
 	// Procesa todos los meshes del nodo
@@ -170,4 +202,47 @@ ModelLoader::ProcessFBXMaterials(FbxSurfaceMaterial* material) {
 			}
 		}
 	}
+}
+// Carga un archivo .OBJ y lo convierte en una estructura interna "LoadDataOBJ"
+LoadDataOBJ
+ModelLoader::LoadOBJ(std::string objFileName) {
+	LoadDataOBJ LD;		 // Estructura que contiene vértices e índices
+	objl::Loader loader;	// Loader del parser OBJ_Loader.h
+
+	if (!loader.LoadFile(objFileName)) {
+		ERROR("ModelLoader", "LoadOBJ", ("No se pudo cargar el archivo: " + objFileName).c_str());
+		return LD;	// Devuelve la estructura vacía si falló
+	}
+
+	// Guardar el nombre del modelo
+	LD.name = objFileName;
+
+	// Cargar vértices
+	LD.vertex.resize(loader.LoadedVertices.size());
+	for (int i = 0; i < (int)LD.vertex.size(); i++) {
+		// Posición del vértice
+		LD.vertex[i].Pos = XMFLOAT3(
+			loader.LoadedVertices[i].Position.X,
+			loader.LoadedVertices[i].Position.Y,
+			loader.LoadedVertices[i].Position.Z
+		);
+		// Coordenadas de textura (UV)
+		LD.vertex[i].Tex = XMFLOAT2(
+			loader.LoadedVertices[i].TextureCoordinate.X,
+			loader.LoadedVertices[i].TextureCoordinate.Y
+		);
+	}
+
+	// Cargar índices
+	// Se reserva espacio para todos los índices del mesh
+	LD.index.resize(loader.LoadedIndices.size());
+	for (int i = 0; i < (int)LD.index.size(); i++) {
+		LD.index[i] = loader.LoadedIndices[i];
+	}
+
+	// Guardar cantidades finales
+	LD.numVertex = static_cast<int>(LD.vertex.size());
+	LD.numIndex = static_cast<int>(LD.index.size());
+
+	return LD;
 }
