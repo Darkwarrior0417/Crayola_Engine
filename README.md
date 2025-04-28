@@ -18,7 +18,8 @@ Este motor fue creado con el propósito de entender, analizar y aplicar los prin
 
 📚 Avance Parcial por Entrega
 
-Primer Parcial
+PRIMER PARCIAL
+
 Window.h — Inicializa y configura la ventana principal (Win32 API).
 
 Device.h — Crea y administra el dispositivo Direct3D.
@@ -33,7 +34,8 @@ RenderTargetView.h — Configura la vista del render target.
 
 DepthStencilView.h — Maneja la profundidad para el orden de dibujo de objetos.
 
-Segundo Parcial
+SEGUNDO PARCIAL
+
 Viewport.h — Define el área de visualización del render.
 
 InputLayout.h — Establece el formato de los vértices enviados al pipeline.
@@ -46,7 +48,8 @@ SamplerState.h — Controla el muestreo de texturas.
 
 UI.h (UserInterface) — Implementa una interfaz de usuario gráfica utilizando ImGui (Docking + Custom Windows).
 
-Tercer Parcial
+TERCER PARCIAL
+
 ModelLoader.h / ModelLoader.cpp — Carga modelos 3D en formato .fbx utilizando FBX SDK y .obj utilizando un parser propio basado en OBJ_Loader.h.
 
 MultiMesh y MultiTexture Support — Se integró la carga de múltiples sub-mallas y su asignación correcta de texturas individuales.
