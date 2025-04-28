@@ -66,6 +66,8 @@ Soporte a Carga de Materiales Básicos desde OBJ/FBX — Se obtiene automáticam
 
 Mejoras en la gestión de recursos — Limpieza automática de Buffers, Texturas y Samplers al destruir los actores.
 
+Actualmente estos añadidos a la solución le dan la capacidad al motor para cargar y representar modelos 3D complejos provenientes de formatos OBJ y FBX, incluyendo la gestión de submeshes y aplicación de texturas específicas por material. Se mejoró la jerarquía de actores evitando duplicaciones de componentes y permitiendo un control claro y organizado de la escena.
+
 ![image](https://github.com/user-attachments/assets/af838825-0c0c-4934-9ea9-99875d3a6095)
 
 
