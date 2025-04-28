@@ -4,8 +4,11 @@
 #include "Texture.h"
 #include "DepthStencilView.h"
 
-// Inicializa el RenderTargetView utilizando la textura del back buffer y un formato específico
-HRESULT RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) {
+/**
+ * @brief Inicializa el RenderTargetView utilizando la textura del back buffer y un formato específico.
+ */
+HRESULT 
+RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT Format) {
     if (!device.m_device) {
         ERROR("RenderTargetView", "init", "Device is nullptr");
         return E_POINTER;
@@ -34,12 +37,17 @@ HRESULT RenderTargetView::init(Device& device, Texture& backBuffer, DXGI_FORMAT 
     return S_OK;
 }
 
-// Método vacío: se puede usar en el futuro para lógica dinámica del RenderTargetView
-void RenderTargetView::update() {
+/**
+ * @brief Método vacío por ahora. Se puede utilizar para actualizar lógica interna si se requiere en el futuro.
+ */
+void 
+RenderTargetView::update() {
     // Intencionalmente vacío por ahora
 }
 
-// Limpia el RenderTargetView y lo establece junto con el DepthStencilView para el render
+/**
+ * @brief Limpia el RenderTargetView y lo asigna junto con el DepthStencilView para el pipeline de renderizado.
+ */
 void RenderTargetView::render(DeviceContext& deviceContext,
     DepthStencilView& depthStencilView,
     unsigned int numViews,
@@ -64,7 +72,10 @@ void RenderTargetView::render(DeviceContext& deviceContext,
         depthStencilView.m_depthStencilView);
 }
 
-// Libera los recursos asignados al RenderTargetView
-void RenderTargetView::destroy() {
+/**
+ * @brief Libera los recursos asociados al RenderTargetView.
+ */
+void 
+RenderTargetView::destroy() {
     SAFE_RELEASE(m_renderTargetView);
 }

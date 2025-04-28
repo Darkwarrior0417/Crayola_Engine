@@ -9,7 +9,8 @@
  @param VertexShaderData Blob que contiene el bytecode del vertex shader.
  @return HRESULT que indica éxito o error.
 */
-HRESULT InputLayout::init(Device& device,
+HRESULT 
+InputLayout::init(Device& device,
     std::vector<D3D11_INPUT_ELEMENT_DESC>& Layout,
     ID3DBlob* VertexShaderData) {
 
@@ -42,7 +43,8 @@ HRESULT InputLayout::init(Device& device,
 /*
  @brief Método vacío que puede utilizarse para actualizar el layout dinámicamente si es necesario.
 */
-void InputLayout::update() {
+void 
+InputLayout::update() {
     // Implementación opcional
 }
 
@@ -50,7 +52,8 @@ void InputLayout::update() {
  @brief Establece el Input Layout en el pipeline gráfico.
  @param deviceContext Contexto del dispositivo donde se asignará el layout.
 */
-void InputLayout::render(DeviceContext& deviceContext) {
+void 
+InputLayout::render(DeviceContext& deviceContext) {
     if (!m_inputLayout) {
         ERROR("InputLayout", "render", "InputLayout is nullptr");
         return;

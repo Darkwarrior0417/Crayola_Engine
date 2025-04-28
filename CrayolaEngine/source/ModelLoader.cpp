@@ -1,6 +1,9 @@
 #include "ModelLoader.h"
 #include "OBJ_Loader.h"
 
+/**
+ * @brief Inicializa el administrador de FBX (FbxManager) necesario para manejar archivos FBX.
+ */
 bool
 ModelLoader::InitializeFBXManager() {
 	// Inicializa el administrador del SDK. Este objeto gestiona toda la memoria.
@@ -22,6 +25,9 @@ ModelLoader::InitializeFBXManager() {
 	return true;
 }
 
+/**
+ * @brief Carga un modelo FBX completo y extrae sus nodos y materiales.
+ */
 bool
 ModelLoader::LoadFBX_model(const std::string& filePath) {
 	OutputDebugStringA("Iniciando carga del modelo FBX...\n");
@@ -75,7 +81,11 @@ ModelLoader::LoadFBX_model(const std::string& filePath) {
 		return false;
 	}
 }
-bool ModelLoader::LoadOBJ_model(const std::string& filePath) {
+/**
+ * @brief Carga un archivo .OBJ y convierte sus datos en MeshComponents internos.
+ */
+bool 
+ModelLoader::LoadOBJ_model(const std::string& filePath) {
 	objl::Loader loader;
 	if (!loader.LoadFile(filePath)) {
 		ERROR("ModelLoader", "LoadOBJ_model", "No se pudo cargar el archivo OBJ: " << filePath.c_str());
@@ -107,6 +117,10 @@ bool ModelLoader::LoadOBJ_model(const std::string& filePath) {
 
 	return true;
 }
+
+/**
+ * @brief Procesa recursivamente los nodos de una escena FBX.
+ */
 void
 ModelLoader::ProcessFBXNode(FbxNode* node) {
 	// Procesa todos los meshes del nodo
@@ -122,7 +136,12 @@ ModelLoader::ProcessFBXNode(FbxNode* node) {
 	}
 }
 
-void ModelLoader::ProcessFBXMesh(FbxNode* node) {
+
+/**
+ * @brief Procesa un mesh de un nodo FBX, separándolo en submeshes por material.
+ */
+void 
+ModelLoader::ProcessFBXMesh(FbxNode* node) {
 	FbxMesh* mesh = node->GetMesh();
 	if (!mesh) return;
 
@@ -188,6 +207,10 @@ void ModelLoader::ProcessFBXMesh(FbxNode* node) {
 		MESSAGE("ModelLoader", "Submesh", ("Submesh creado: " + meshData.m_name).c_str());
 	}
 }
+
+/**
+ * @brief Procesa los materiales de la escena FBX y extrae nombres de texturas difusas.
+ */
 void
 ModelLoader::ProcessFBXMaterials(FbxSurfaceMaterial* material) {
 	if (material) {
@@ -203,7 +226,10 @@ ModelLoader::ProcessFBXMaterials(FbxSurfaceMaterial* material) {
 		}
 	}
 }
-// Carga un archivo .OBJ y lo convierte en una estructura interna "LoadDataOBJ"
+
+/**
+ * @brief Carga un archivo .OBJ sencillo y devuelve sus datos encapsulados en una estructura LoadDataOBJ.
+ */
 LoadDataOBJ
 ModelLoader::LoadOBJ(std::string objFileName) {
 	LoadDataOBJ LD;		 // Estructura que contiene vértices e índices

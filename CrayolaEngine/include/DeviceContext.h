@@ -4,7 +4,13 @@
 class
 DeviceContext {
 public:
+	/*
+	* @brief Constructor por defecto.
+	*/
 	DeviceContext() = default;
+	/*
+	* @brief Destructor por defecto.
+	*/
 	~DeviceContext() = default;
 
 	/* @brief Inicializa el contexto del dispositivo. */
@@ -127,5 +133,5 @@ public:
 private:
 
 public:
-	ID3D11DeviceContext* m_deviceContext = nullptr;
+	ID3D11DeviceContext* m_deviceContext = nullptr;	 // Puntero al contexto de dispositivo de DirectX 11
 };

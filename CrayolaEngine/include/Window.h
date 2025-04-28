@@ -2,12 +2,16 @@
 #include "Prerequisites.h"
 
 class
-	Window {
+Window {
 public:
 	/**
-	 * @brief Constructor y destructor por defecto.
+	 * @brief Constructor por defecto.
 	 */
 	Window() = default;
+
+	/**
+	 * @brief Destructor por defecto.
+	 */
 	~Window() = default;
 
 	/**
@@ -19,25 +23,25 @@ public:
 	 * @return HRESULT Resultado de la inicializaci�n.
 	 */
 	HRESULT
-		init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
+	init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc);
 
 	/**
 	 * @brief Actualiza el estado de la ventana.
 	 */
 	void
-		update();
+	update();
 
 	/**
 	 * @brief Renderiza el contenido de la ventana.
 	 */
 	void
-		render();
+	render();
 
 	/**
 	 * @brief Libera los recursos de la ventana.
 	 */
 	void
-		destroy();
+	destroy();
 
 public:
 	// Handle de la ventana.

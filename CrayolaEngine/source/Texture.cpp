@@ -4,8 +4,15 @@
 #include "Device.h"
 #include "DeviceContext.h"
 
-// Inicializa una textura desde archivo (DDS o PNG)
-HRESULT Texture::init(Device device,
+/**
+ * @brief Inicializa una textura cargándola desde un archivo (DDS o PNG).
+ * @param device Dispositivo de renderizado.
+ * @param textureName Ruta del archivo de la textura.
+ * @param extensionType Tipo de extensión (DDS o PNG).
+ * @return HRESULT indicando éxito o error.
+ */
+HRESULT 
+Texture::init(Device device,
     const std::string& textureName,
     ExtensionType extensionType) {
 
@@ -93,8 +100,12 @@ HRESULT Texture::init(Device device,
     return hr;
 }
 
-// Inicializa una textura vacía con los parámetros especificados
-HRESULT Texture::init(Device device,
+/**
+ * @brief Inicializa una textura vacía con parámetros definidos.
+ * @return HRESULT indicando éxito o error.
+ */
+HRESULT 
+Texture::init(Device device,
     unsigned int width,
     unsigned int height,
     DXGI_FORMAT Format,
@@ -136,13 +147,22 @@ HRESULT Texture::init(Device device,
     return hr;
 }
 
-// Método vacío para futuras actualizaciones
-void Texture::update() {
+/**
+ * @brief Método vacío: reservado para futuras actualizaciones internas de textura.
+ */
+void 
+Texture::update() {
     // Implementación opcional
 }
 
-// Asigna la textura al Pixel Shader
-void Texture::render(DeviceContext& deviceContext,
+/**
+ * @brief Asigna la textura al pipeline de renderizado para el Pixel Shader.
+ * @param deviceContext Contexto de dispositivo.
+ * @param StartSlot Slot de inicio para el shader resource.
+ * @param NumViews Número de vistas a asignar.
+ */
+void 
+Texture::render(DeviceContext& deviceContext,
     unsigned int StartSlot,
     unsigned int NumViews) {
 
@@ -157,8 +177,11 @@ void Texture::render(DeviceContext& deviceContext,
     }
 }
 
-// Libera los recursos asociados a la textura
-void Texture::destroy() {
+/**
+ * @brief Libera todos los recursos asociados a la textura.
+ */// Libera los recursos asociados a la textura
+void 
+Texture::destroy() {
     SAFE_RELEASE(m_texture);
     SAFE_RELEASE(m_textureFromImg);
 }

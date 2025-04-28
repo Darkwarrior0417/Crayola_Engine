@@ -10,7 +10,8 @@ class Texture;
 /*
  * @brief Clase que gestiona la cadena de intercambio de Direct3D 11.
  */
-class SwapChain {
+class 
+SwapChain {
 public:
     /**
      * @brief Constructor por defecto.
@@ -25,7 +26,8 @@ public:
     /**
      * @brief Inicializa la cadena de intercambio.
      */
-    HRESULT init(Device& device,
+    HRESULT 
+    init(Device& device,
         DeviceContext& deviceContext,
         Texture& backBuffer,
         Window& window); 
@@ -33,24 +35,28 @@ public:
     /**
      * @brief Actualiza los parámetros de la cadena de intercambio si es necesario.
      */
-    void update();
+    void 
+    update();
 
     /**
      * @brief Renderiza el contenido en el buffer de la cadena de intercambio.
      */
-    void render();
+    void 
+    render();
 
     /**
      * @brief Libera los recursos asociados con la cadena de intercambio.
      */
-    void destroy();
+    void 
+    destroy();
 
     /**
      * @brief Presenta el buffer trasero en la pantalla.
      *
      * Se encarga de intercambiar el buffer trasero con el buffer frontal para mostrar la imagen renderizada.
      */
-    void present();
+    void 
+    present();
 
 public:
     IDXGISwapChain* m_swapchain = nullptr;

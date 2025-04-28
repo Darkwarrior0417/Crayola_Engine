@@ -1,24 +1,31 @@
 #include "Window.h"
 
+/**
+ * @brief Inicializa y crea una ventana de Win32 para la aplicación.
+ * @param hInstance Instancia de la aplicación.
+ * @param nCmdShow Modo de visualización de la ventana.
+ * @param wndproc Procedimiento de ventana (callback para eventos).
+ * @return HRESULT indicando éxito o error.
+ */
 HRESULT
 Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
-    // Store instance of the class
+    // Guardar la instancia de la aplicación
     m_hInst = hInstance;
 
-    // Register class
+    // Registrar la clase de ventana
     WNDCLASSEX wcex;
     wcex.cbSize = sizeof(WNDCLASSEX);
-    wcex.style = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc = wndproc;
+    wcex.style = CS_HREDRAW | CS_VREDRAW;   // Redibujar en cambios de tamaño
+    wcex.lpfnWndProc = wndproc;     // Procedimiento para eventos
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = m_hInst;
-    wcex.hIcon = LoadIcon(m_hInst, (LPCTSTR)IDI_TUTORIAL1);
-    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.hIcon = LoadIcon(m_hInst, (LPCTSTR)IDI_TUTORIAL1); // Icono grande
+    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);          // Cursor por defecto
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);        // Color de fondo
     wcex.lpszMenuName = NULL;
-    wcex.lpszClassName = "TutorialWindowClass";
-    wcex.hIconSm = LoadIcon(wcex.hInstance, (LPCTSTR)IDI_TUTORIAL1);
+    wcex.lpszClassName = "TutorialWindowClass";         // Nombre de la clase de ventana
+    wcex.hIconSm = LoadIcon(wcex.hInstance, (LPCTSTR)IDI_TUTORIAL1); // Icono pequeño
 
     if (!RegisterClassEx(&wcex)) {
         MessageBox(nullptr, "RegisterClassEx failed!", "Error", MB_OK);
@@ -26,10 +33,11 @@ Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
         return E_FAIL;
     }
 
-    // Create Window
+    //  Crear la ventana
     RECT rc = { 0, 0, 1280, 720 };
     m_rect = rc;
 
+    // Ajustar tamaño del rectángulo considerando bordes y título
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
     m_hWnd = CreateWindow("TutorialWindowClass",
@@ -49,6 +57,7 @@ Window::init(HINSTANCE hInstance, int nCmdShow, WNDPROC wndproc) {
         return E_FAIL;
     }
 
+    // Mostrar y actualizar la ventana  
     ShowWindow(m_hWnd, nCmdShow);
     UpdateWindow(m_hWnd);
 

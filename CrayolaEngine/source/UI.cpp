@@ -5,9 +5,14 @@
 #include "BaseApp.h"
 #include "ECS/Transform.h"
 
-extern BaseApp g_app;
+extern 
+BaseApp g_app;
 
-void UI::init(void* window, ID3D11Device* device, ID3D11DeviceContext* deviceContext)
+/**
+ * @brief Inicializa ImGui con la ventana y dispositivos de DirectX 11.
+ */
+void 
+UI::init(void* window, ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -29,14 +34,23 @@ void UI::init(void* window, ID3D11Device* device, ID3D11DeviceContext* deviceCon
     ImGui_ImplDX11_Init(device, deviceContext);
 }
 
-void UI::update()
+
+/**
+ * @brief Prepara una nueva frame para dibujar UI.
+ */
+void
+UI::update()
 {
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
 }
 
-void UI::render()
+/**
+ * @brief Renderiza la UI en pantalla.
+ */
+void 
+UI::render()
 {
     ImGui::Render();
     ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -49,27 +63,38 @@ void UI::render()
     }
 }
 
-void UI::destroy()
+/**
+ * @brief Libera recursos de ImGui.
+ */
+void
+UI::destroy()
 {
     ImGui_ImplDX11_Shutdown();
     ImGui_ImplWin32_Shutdown();
     ImGui::DestroyContext();
 }
 
-void UI::renderWindow()
+/**
+ * @brief Renderiza una ventana de prueba simple.
+ */
+void 
+UI::renderWindow()
 {
     ImGui::Begin("Comienza el fornait");
     ImGui::Text("De pelos rey");
     ImGui::End();
 }
 
-void UI::Inspector()
+/**
+ * @brief Renderiza el panel de Inspector para ver/editar el Transform del Actor seleccionado.
+ */
+void 
+UI::Inspector()
 {
     ImGui::Begin("Inspector");
 
-    auto actor = g_app.ALethal;
-    if (!actor.isNull()) {
-        auto transform = actor->getComponent<Transform>();
+    if (!g_app.m_selectedActor.isNull()) { // ← Aquí ya estás trabajando solo sobre m_selectedActor
+        auto transform = g_app.m_selectedActor->getComponent<Transform>();
         if (!transform.isNull()) {
             TransformGUI(*transform);
         }
@@ -78,15 +103,22 @@ void UI::Inspector()
         }
     }
     else {
-        ImGui::Text("No actor found.");
+        ImGui::Text("No actor selected.");
     }
 
     ImGui::End();
 }
 
+/**
+ * @brief Dibuja controles de posición, rotación y escala para un Transform.
+ * @param transform Transform a modificar.
+ */
 void UI::TransformGUI(Transform& transform)
 {
     ImGui::Begin("Transform");
+
+    // Hacer que cada Transform tenga un ID único basado en su puntero
+    ImGui::PushID(&transform);
 
     EngineUtilities::Vector3 pos = transform.getPosition();
     EngineUtilities::Vector3 rot = transform.getRotation();
@@ -104,10 +136,16 @@ void UI::TransformGUI(Transform& transform)
         transform.setScale(sca);
     }
 
+    ImGui::PopID(); // Importante para no afectar otras ventanas o ImGui widgets
+
     ImGui::End();
 }
 
-void UI::baseStyleGUI()
+/**
+ * @brief Aplica un estilo visual personalizado a la interfaz de ImGui.
+ */
+void 
+UI::baseStyleGUI()
 {
     ImGuiStyle& style = ImGui::GetStyle();
     ImVec4* colors = style.Colors;
@@ -143,7 +181,15 @@ void UI::baseStyleGUI()
     style.PopupBorderSize = 1.0f;
 }
 
-void UI::vec3Control(const std::string& label, float* values, float resetValues, float columnWidth)
+/**
+ * @brief Control personalizado para editar un vector3 (posición, rotación o escala) en UI.
+ * @param label Texto del control.
+ * @param values Puntero al array de 3 floats (X, Y, Z).
+ * @param resetValues Valor por defecto al reiniciar.
+ * @param columnWidth Ancho de la primera columna.
+ */
+void 
+UI::vec3Control(const std::string& label, float* values, float resetValues, float columnWidth)
 {
     ImGuiIO& io = ImGui::GetIO();
     auto boldFont = io.Fonts->Fonts[0];

@@ -2,8 +2,13 @@
 #include "Device.h"
 #include "DeviceContext.h"
 
-// Inicializa el SamplerState con configuración básica de muestreo lineal
-HRESULT SamplerState::init(Device& device) {
+/**
+ * @brief Inicializa el SamplerState con configuración estándar de muestreo lineal y direccionamiento wrap.
+ * @param device Dispositivo de renderizado DirectX 11.
+ * @return HRESULT indicando éxito o error.
+ */
+HRESULT 
+SamplerState::init(Device& device) {
     if (!device.m_device) {
         ERROR("SamplerState", "init", "Device is nullptr");
         return E_POINTER;
@@ -29,13 +34,19 @@ HRESULT SamplerState::init(Device& device) {
     return S_OK;
 }
 
-// Método vacío: el sampler no necesita actualización por ahora
-void SamplerState::update() {
+/**
+ * @brief Método vacío: Actualmente no se requiere lógica de actualización para el Sampler.
+ */
+void
+SamplerState::update() {
     // Nada que actualizar actualmente
 }
 
-// Asigna el sampler al pixel shader
-void SamplerState::render(DeviceContext& deviceContext,
+/**
+ * @brief Asigna el SamplerState al pixel shader.
+ */
+void 
+SamplerState::render(DeviceContext& deviceContext,
     unsigned int StartSlot,
     unsigned int NumSamplers) {
 
@@ -47,8 +58,11 @@ void SamplerState::render(DeviceContext& deviceContext,
     deviceContext.PSSetSamplers(StartSlot, NumSamplers, &m_sampler);
 }
 
-// Libera los recursos del sampler
-void SamplerState::destroy() {
+/**
+ * @brief Libera los recursos asociados al SamplerState.
+ */
+void 
+SamplerState::destroy() {
     if (m_sampler) {
         SAFE_RELEASE(m_sampler);
     }

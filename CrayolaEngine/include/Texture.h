@@ -4,28 +4,36 @@
 class Device;
 class DeviceContext;
 
+/**
+* @brief Clase que encapsula la creación, manejo y renderizado de texturas en DirectX 11.
+*/
 class
-    Texture {
+Texture {
 public:
+    
     /**
-     * @brief Default constructor and destructor.
+     * @brief Constructor por defecto.
      */
     Texture() = default;
+
+    /**
+     * @brief Destructor por defecto.
+     */
     ~Texture() = default;
 
     /**
-     * @brief Initializes a texture from a file.
+     * @brief Inicializa una textura a partir de un archivo de imagen.
      */
     HRESULT
-        init(Device device,
+    init(Device device,
             const std::string& textureName,
             ExtensionType extensionType);
 
     /**
-     * @brief Initializes a texture with specified parameters.
+     * @brief Inicializa una textura manualmente especificando sus parámetros.
      */
     HRESULT
-        init(Device device,
+    init(Device device,
             unsigned int width,
             unsigned int height,
             DXGI_FORMAT Format,
@@ -34,28 +42,26 @@ public:
             unsigned int qualityLevels = 0);
 
     /**
-     * @brief Updates the texture data.
+     * @brief Actualiza el estado interno de la textura (normalmente no se usa).
      */
     void
-        update();
+    update();
 
     /**
-     * @brief Renders the texture using the specified device context.
+     * @brief Establece la textura activa para el pipeline de renderizado.
      */
     void
-        render(DeviceContext& deviceContet,
+    render(DeviceContext& deviceContet,
             unsigned int StartSlot,
             unsigned int NumViews);
 
     /**
-    * @brief Releases texture resources and cleans up memory.
-    */
+     * @brief Libera los recursos de la textura y limpia la memoria utilizada.
+     */
     void
-        destroy();
+    destroy();
 
 public:
-    // This variable is in charge of handle a texture resource as data
-    ID3D11Texture2D* m_texture = nullptr;
-    // This variable is in charge of handle a texture resource as image data
-    ID3D11ShaderResourceView* m_textureFromImg;
+    ID3D11Texture2D* m_texture = nullptr;    // Recurso de textura como un 2D Texture en DirectX 11
+    ID3D11ShaderResourceView* m_textureFromImg;     // Vista de recurso para utilizar la textura en shaders
 };

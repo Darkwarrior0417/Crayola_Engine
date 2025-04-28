@@ -5,34 +5,52 @@
 class Device;
 class DeviceContext;
 
-// Encapsula la carga, compilación, y uso de shaders (vertex y pixel) en DirectX 11.
-class ShaderProgram {
+/**
+ * @brief Clase que encapsula la carga, compilación, y uso de shaders en DirectX 11,
+ * incluyendo vertex shaders, pixel shaders e input layouts.
+ */
+class 
+ShaderProgram {
 public:
+    /**
+     * @brief Constructor por defecto.
+     */
     ShaderProgram() = default;
+
+    /**
+     * @brief Destructor por defecto.
+     */
     ~ShaderProgram() = default;
 
     // Inicializa el shader program con archivo y layout de entrada.
-    HRESULT init(Device& device,
+    HRESULT 
+    init(Device& device,
         const std::string& fileName,
         std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
     // Actualiza el estado interno del shader (si aplica).
-    void update();
+    void 
+    update();
 
     // Asigna los shaders y layout al pipeline de renderizado.
-    void render(DeviceContext& deviceContext);
+    void 
+    render(DeviceContext& deviceContext);
 
     // Libera los recursos del shader program.
-    void destroy();
+    void 
+    destroy();
 
     // Crea el input layout con base en la descripción del layout y shader compilado.
-    HRESULT CreateInputLayout(Device& device, std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
+    HRESULT 
+    CreateInputLayout(Device& device, std::vector<D3D11_INPUT_ELEMENT_DESC> Layout);
 
     // Crea un shader (vertex o pixel) según el tipo.
-    HRESULT CreateShader(Device& device, ShaderType type);
+    HRESULT 
+    CreateShader(Device& device, ShaderType type);
 
     // Compila un shader desde archivo.
-    HRESULT CompileShaderFromFile(char* szFileName,
+    HRESULT 
+    CompileShaderFromFile(char* szFileName,
         LPCSTR szEntryPoint,
         LPCSTR szShaderModel,
         ID3DBlob** ppBlobOut);

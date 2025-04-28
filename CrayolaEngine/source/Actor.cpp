@@ -1,106 +1,119 @@
-    #include "ECS/Actor.h"
-    #include "MeshComponent.h"
-    #include "Device.h"
+#include "ECS/Actor.h"
+#include "MeshComponent.h"
+#include "Device.h"
 
-    Actor::Actor(Device& device) {
-        EngineUtilities::TSharedPointer<Transform> transform = EngineUtilities::MakeShared<Transform>();
-        addComponent(transform);
+/**
+ * @brief Constructor del Actor.
+ * Crea componentes Transform y Mesh por defecto, y configura buffers y sampler.
+ */
+Actor::Actor(Device& device) {
+    auto transform = EngineUtilities::MakeShared<Transform>();
+    addComponent(transform);
 
-        EngineUtilities::TSharedPointer<MeshComponent> mesh = EngineUtilities::MakeShared<MeshComponent>();
-        addComponent(mesh);
+    auto mesh = EngineUtilities::MakeShared<MeshComponent>();
+    addComponent(mesh);
 
-        HRESULT hr;
-        string classNameType = "Actor -> " + m_name;
+    HRESULT hr;
+    string classNameType = "Actor -> " + m_name;
 
-        hr = m_modelBuffer.init(device, sizeof(CBChangesEveryFrame));
-        if (FAILED(hr)) {
-            ERROR("Actor", classNameType.c_str(), "Failed to create new CBChanges EveryFrame");
-        }
-
-        hr = m_sampler.init(device);
-        if (FAILED(hr)) {
-            ERROR("Actor", classNameType.c_str(), "Failed to SamplerState");
-        }
+    // Inicialización del buffer constante para cambios cada frame
+    hr = m_modelBuffer.init(device, sizeof(CBChangesEveryFrame));
+    if (FAILED(hr)) {
+        ERROR("Actor", classNameType.c_str(), "Failed to create CBChangesEveryFrame buffer.");
     }
 
-    void
-    Actor::update(float deltaTime, DeviceContext& deviceContext) {
-        // Update transform
-        getComponent<Transform>()->update(deltaTime);
+    // Inicialización del Sampler State
+    hr = m_sampler.init(device);
+    if (FAILED(hr)) {
+        ERROR("Actor", classNameType.c_str(), "Failed to create SamplerState.");
+    }
+}
 
-        m_changeEveryFrame.mWorld = XMMatrixTranspose(getComponent<Transform>()->matrix);
-        m_changeEveryFrame.vMeshColor = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
-
-        // Update Atributes
-        m_modelBuffer.update(deviceContext, 0, nullptr, &m_changeEveryFrame, 0, 0);
+void 
+Actor::update(float deltaTime, DeviceContext& deviceContext) {
+    auto transform = getComponent<Transform>();
+    if (!transform.isNull()) {
+        transform->update(deltaTime);
+        m_changeEveryFrame.mWorld = XMMatrixTranspose(transform->matrix);
+    }
+    else {
+        m_changeEveryFrame.mWorld = XMMatrixIdentity();
     }
 
-    void
-    Actor::render(DeviceContext& deviceContext) {
-        m_sampler.render(deviceContext, 0, 1);
+    // Color de la malla (puede personalizarse en el futuro)
+    m_changeEveryFrame.vMeshColor = XMFLOAT4(0.7f, 0.7f, 0.7f, 1.0f);
+    // Actualizar el constant buffer en la GPU
+    m_modelBuffer.update(deviceContext, 0, nullptr, &m_changeEveryFrame, 0, 0);
+}
 
-        // Update Buffers for each mesh on the actor
-        for (unsigned int i = 0; i < m_meshes.size(); i++) {
+void 
+Actor::render(DeviceContext& deviceContext) {
+    // Aplicar el Sampler State
+    m_sampler.render(deviceContext, 0, 1);
+
+    // Dibujar todas las mallas asociadas
+    for (size_t i = 0; i < m_meshes.size(); ++i) {
+        if (i < m_vertexBuffers.size() && i < m_indexBuffers.size()) {
+            // Establecer vertex e index buffers    
             m_vertexBuffers[i].render(deviceContext, 0, 1);
             m_indexBuffers[i].render(deviceContext, 0, 1, false, DXGI_FORMAT_R32_UINT);
 
-            if (m_textures.size() > 0) {
-                if (i < m_textures.size()) {
-                    m_textures[i].render(deviceContext, 0, 1);
-                }
+            // Establecer textura asociada (si existe)
+            if (i < m_textures.size()) {
+                m_textures[i].render(deviceContext, 0, 1);
             }
 
+            // Establecer el Constant Buffer para el shader
             m_modelBuffer.render(deviceContext, 2, 1, true);
-
+            // Configurar la topología de primitivas (triángulos)
             deviceContext.IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+            // Dibujar la malla
             deviceContext.DrawIndexed(m_meshes[i].m_numIndex, 0, 0);
         }
     }
+}
 
-    void
-    Actor::destroy() {
-        for (auto& vertexBuffer : m_vertexBuffers) {
-            vertexBuffer.destroy();
-        }
-
-        for (auto& indexBuffer : m_indexBuffers) {
-            indexBuffer.destroy();
-        }
-
-        for (auto& tex : m_textures) {
-            tex.destroy();
-        }
-
-        m_modelBuffer.destroy();
-        //m_rasterizer.destroy();
-        //m_blendstate.destroy();
-        m_sampler.destroy();
+void 
+Actor::destroy() {
+    for (auto& vb : m_vertexBuffers) {
+        vb.destroy();
+    }
+    for (auto& ib : m_indexBuffers) {
+        ib.destroy();
+    }
+    for (auto& tex : m_textures) {
+        tex.destroy();
     }
 
-    void
-    Actor::setMesh(Device& device, std::vector<MeshComponent> meshes) {
-        m_meshes = meshes;
-        HRESULT hr;
+    m_modelBuffer.destroy();
+    m_sampler.destroy();
+}
 
-        for (auto& mesh : m_meshes) {
-            // Crear vertex buffer
-            Buffer vertexBuffer;
-            hr = vertexBuffer.init(device, mesh, D3D11_BIND_VERTEX_BUFFER);
-            if (FAILED(hr)) {
-                ERROR("Actor", "setMesh", "Failed to create new vertexBuffer");
-            }
-            else {
-                m_vertexBuffers.push_back(vertexBuffer);
-            }
+void 
+Actor::setMesh(Device& device, const std::vector<MeshComponent>& meshes) {
+    m_meshes = meshes;
+    HRESULT hr;
 
-            // Crear index buffer
-            Buffer indexBuffer;
-            hr = indexBuffer.init(device, mesh, D3D11_BIND_INDEX_BUFFER);
-            if (FAILED(hr)) {
-                ERROR("Actor", "setMesh", "Failed to create new indexBuffer");
-            }
-            else {
-                m_indexBuffers.push_back(indexBuffer);
-            }
+    m_vertexBuffers.clear();
+    m_indexBuffers.clear();
+
+    for (const auto& mesh : m_meshes) {
+        Buffer vertexBuffer;
+        hr = vertexBuffer.init(device, mesh, D3D11_BIND_VERTEX_BUFFER);
+        if (FAILED(hr)) {
+            ERROR("Actor", "setMesh", "Failed to create VertexBuffer");
+        }
+        else {
+            m_vertexBuffers.push_back(vertexBuffer);
+        }
+
+        Buffer indexBuffer;
+        hr = indexBuffer.init(device, mesh, D3D11_BIND_INDEX_BUFFER);
+        if (FAILED(hr)) {
+            ERROR("Actor", "setMesh", "Failed to create IndexBuffer");
+        }
+        else {
+            m_indexBuffers.push_back(indexBuffer);
         }
     }
+}

@@ -1,7 +1,8 @@
 ﻿#include "Device.h"
 
 /* @brief Libera los recursos del dispositivo. */
-void Device::destroy() {
+void 
+Device::destroy() {
     SAFE_RELEASE(m_device);
 }
 
@@ -34,7 +35,8 @@ HRESULT Device::CreateRenderTargetView(ID3D11Resource* pResource,
 }
 
 /* @brief Crea una textura 2D. */
-HRESULT Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
+HRESULT 
+Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
     const D3D11_SUBRESOURCE_DATA* pInitialData,
     ID3D11Texture2D** ppTexture2D) {
 
@@ -61,7 +63,8 @@ HRESULT Device::CreateTexture2D(const D3D11_TEXTURE2D_DESC* pDesc,
 }
 
 /* @brief Crea una Depth Stencil View. */
-HRESULT Device::CreateDepthStencilView(ID3D11Resource* pResource,
+HRESULT 
+Device::CreateDepthStencilView(ID3D11Resource* pResource,
     const D3D11_DEPTH_STENCIL_VIEW_DESC* pDesc,
     ID3D11DepthStencilView** ppDepthStencilView) {
 
@@ -88,7 +91,8 @@ HRESULT Device::CreateDepthStencilView(ID3D11Resource* pResource,
 }
 
 /* @brief Crea un Vertex Shader desde bytecode compilado. */
-HRESULT Device::CreateVertexShader(const void* pShaderBytecode,
+HRESULT 
+Device::CreateVertexShader(const void* pShaderBytecode,
     unsigned int BytecodeLength,
     ID3D11ClassLinkage* pClassLinkage,
     ID3D11VertexShader** ppVertexShader) {
@@ -116,7 +120,8 @@ HRESULT Device::CreateVertexShader(const void* pShaderBytecode,
 }
 
 /* @brief Crea un Input Layout para describir el formato de los vértices. */
-HRESULT Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
+HRESULT 
+Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
     unsigned int NumElements,
     const void* pShaderBytecodeWithInputSignature,
     unsigned int BytecodeLength,
@@ -145,7 +150,8 @@ HRESULT Device::CreateInputLayout(D3D11_INPUT_ELEMENT_DESC* pInputElementDescs,
 }
 
 /* @brief Crea un Pixel Shader desde bytecode compilado. */
-HRESULT Device::CreatePixelShader(const void* pShaderBytecode,
+HRESULT 
+Device::CreatePixelShader(const void* pShaderBytecode,
     unsigned int BytecodeLength,
     ID3D11ClassLinkage* pClassLinkage,
     ID3D11PixelShader** ppPixelShader) {
@@ -173,7 +179,8 @@ HRESULT Device::CreatePixelShader(const void* pShaderBytecode,
 }
 
 /* @brief Crea un buffer (vertex, index o constante). */
-HRESULT Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
+HRESULT 
+Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
     const D3D11_SUBRESOURCE_DATA* pInitialData,
     ID3D11Buffer** ppBuffer) {
 
@@ -200,7 +207,8 @@ HRESULT Device::CreateBuffer(const D3D11_BUFFER_DESC* pDesc,
 }
 
 /* @brief Crea un Sampler State para control de muestreo de texturas. */
-HRESULT Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
+HRESULT
+Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
     ID3D11SamplerState** ppSamplerState) {
 
     if (!pSamplerDesc) {
@@ -226,7 +234,8 @@ HRESULT Device::CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc,
 }
 
 /* @brief Crea un Rasterizer State para controlar el modo de rasterización. */
-HRESULT Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
+HRESULT 
+Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDesc,
     ID3D11RasterizerState** ppRasterizerState) {
 
     if (!pRasterizerDesc) {
@@ -252,7 +261,8 @@ HRESULT Device::CreateRasterizerState(const D3D11_RASTERIZER_DESC* pRasterizerDe
 }
 
 /* @brief Crea un Blend State para definir cómo se mezclan los colores al dibujar. */
-HRESULT Device::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc,
+HRESULT 
+Device::CreateBlendState(const D3D11_BLEND_DESC* pBlendStateDesc,
     ID3D11BlendState** ppBlendState) {
 
     if (!pBlendStateDesc) {

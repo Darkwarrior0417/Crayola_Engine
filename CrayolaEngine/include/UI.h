@@ -7,9 +7,17 @@ class Window;
 /**
  * @brief Encapsula el sistema de interfaz gráfica (UI) usando ImGui.
  */
-class UI {
+class 
+UI {
 public:
+    /**
+     * @brief Constructor por defecto.
+     */
     UI() = default;
+
+    /**
+     * @brief Destructor por defecto.
+     */
     ~UI() = default;
 
     /**
@@ -40,6 +48,9 @@ public:
      */
     void baseStyleGUI();
 
+    /**
+     * @brief Genera una interfaz gráfica para modificar una Transformación (posición, rotación, escala).
+     */
     void TransformGUI(Transform& transform);
 
     /**

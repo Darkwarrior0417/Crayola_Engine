@@ -10,7 +10,8 @@
  @param format Formato DXGI para la vista.
  @return HRESULT que indica éxito o error.
 */
-HRESULT DepthStencilView::init(Device& device, Texture& depthStencil, DXGI_FORMAT format) {
+HRESULT 
+DepthStencilView::init(Device& device, Texture& depthStencil, DXGI_FORMAT format) {
     if (!device.m_device) {
         ERROR("DepthStencilView", "init", "Device is nullptr");
         return E_POINTER;
@@ -42,7 +43,8 @@ HRESULT DepthStencilView::init(Device& device, Texture& depthStencil, DXGI_FORMA
  @brief Limpia el DepthStencilView con el valor de profundidad por defecto.
  @param deviceContext Contexto de dispositivo para emitir el comando.
 */
-void DepthStencilView::render(DeviceContext& deviceContext) {
+void 
+DepthStencilView::render(DeviceContext& deviceContext) {
     if (!m_depthStencilView) {
         ERROR("DepthStencilView", "render", "DepthStencilView is nullptr");
         return;
@@ -59,6 +61,7 @@ void DepthStencilView::render(DeviceContext& deviceContext) {
 /*
  @brief Libera los recursos asociados a la DepthStencilView.
 */
-void DepthStencilView::destroy() {
+void
+DepthStencilView::destroy() {
     SAFE_RELEASE(m_depthStencilView);
 }

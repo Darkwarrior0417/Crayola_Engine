@@ -2,8 +2,13 @@
 #include "Window.h"
 #include "DeviceContext.h"
 
-// Inicializa el viewport utilizando las dimensiones de una ventana existente
-HRESULT Viewport::init(const Window& window) {
+/**
+ * @brief Inicializa el viewport utilizando las dimensiones de una ventana existente.
+ * @param window Referencia a la ventana.
+ * @return HRESULT indicando éxito o error.
+ */
+HRESULT
+Viewport::init(const Window& window) {
     if (!window.m_hWnd) {
         ERROR("Viewport", "init", "Window handle (m_hWnd) is nullptr");
         return E_POINTER;
@@ -24,8 +29,14 @@ HRESULT Viewport::init(const Window& window) {
     return S_OK;
 }
 
-// Inicializa el viewport directamente a partir de valores de ancho y alto
-HRESULT Viewport::init(unsigned int width, unsigned int height) {
+/**
+ * @brief Inicializa el viewport a partir de valores de ancho y alto específicos.
+ * @param width Ancho del viewport.
+ * @param height Alto del viewport.
+ * @return HRESULT indicando éxito o error.
+ */
+HRESULT 
+Viewport::init(unsigned int width, unsigned int height) {
     if (width == 0 || height == 0) {
         ERROR("Viewport", "init", "Width or height is zero");
         return E_INVALIDARG;
@@ -42,13 +53,19 @@ HRESULT Viewport::init(unsigned int width, unsigned int height) {
     return S_OK;
 }
 
-// Método opcional para actualizar dinámicamente el viewport en tiempo de ejecución
-void Viewport::update() {
+/**
+ * @brief Método opcional para actualizar dinámicamente el viewport en tiempo de ejecución.
+ */
+void
+Viewport::update() {
     
 }
-
-// Establece el viewport en el contexto de renderizado activo
-void Viewport::render(DeviceContext& deviceContext) {
+/**
+ * @brief Establece el viewport en el pipeline de renderizado.
+ * @param deviceContext Contexto del dispositivo para establecer el viewport.
+ */
+void 
+Viewport::render(DeviceContext& deviceContext) {
     if (!deviceContext.m_deviceContext) {
         ERROR("Viewport", "render", "DeviceContext is nullptr");
         return;
@@ -57,7 +74,10 @@ void Viewport::render(DeviceContext& deviceContext) {
     deviceContext.RSSetViewports(1, &m_viewport);
 }
 
-// Libera recursos asociados al viewport
-void Viewport::destroy() {
+/**
+ * @brief Libera los recursos asociados al viewport.
+ */
+void 
+Viewport::destroy() {
    
 }

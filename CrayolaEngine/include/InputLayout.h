@@ -9,12 +9,23 @@ InputLayout {
 public:
 
 	/* @brief Constructor por defecto. */
+
 	InputLayout() = default;
+
 	/* @brief Destructor por defecto. */
+
 	~InputLayout() = default;
 
+	/**
+	* @brief Inicializa el Input Layout a partir de una descripción de los elementos de entrada
+	* y los datos compilados del Vertex Shader.
+	* @param device Referencia al dispositivo de renderizado.
+	* @param Layout Vector que describe el formato de los datos de entrada.
+	* @param VertexShaderData Datos compilados del Vertex Shader (bytecode).
+	* @return HRESULT que indica éxito o error.
+	*/
 	HRESULT
-		init(Device& device,
+	init(Device& device,
 			std::vector<D3D11_INPUT_ELEMENT_DESC>& Layout,
 			ID3DBlob* VertexShaderData);
 

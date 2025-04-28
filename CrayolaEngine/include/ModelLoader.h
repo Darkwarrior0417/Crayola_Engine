@@ -3,7 +3,9 @@
 #include "MeshComponent.h"
 #include "fbxsdk.h"
 
-// Estructura auxiliar para representar datos crudos de un modelo OBJ
+/**
+ * @brief Estructura auxiliar para representar los datos de un modelo OBJ cargado manualmente.
+ */
 struct LoadDataOBJ {
 	std::string name;
 	std::vector<SimpleVertex> vertex;
@@ -12,20 +14,52 @@ struct LoadDataOBJ {
 	int numIndex = 0;
 };
 
-class ModelLoader {
+/**
+ * @brief Clase encargada de cargar modelos 3D en formatos FBX y OBJ,
+ * procesando su geometría y materiales.
+ */
+class 
+ModelLoader {
 public:
+	/**
+	 * @brief Constructor por defecto.
+	 */
 	ModelLoader() = default;
+
+	/**
+	 * @brief Destructor por defecto.
+	 */
 	~ModelLoader() = default;
 
-	// Inicializa el manejador FBX
+	/**
+	 * @brief Inicializa el manejador de FBX SDK.
+	 * @return true si la inicialización fue exitosa, false en caso contrario.
+	 */
 	bool InitializeFBXManager();
 
-	// Carga modelo FBX
+	/**
+	 * @brief Carga un modelo FBX y procesa sus datos.
+	 * @param filepath Ruta del archivo FBX a cargar.
+	 * @return true si la carga fue exitosa, false en caso contrario.
+	 */
 	bool LoadFBX_model(const std::string& filenpath);
 
-	// Procesa nodos y mallas FBX
+	/**
+	 * @brief Procesa un nodo del árbol de la escena FBX.
+	 * @param node Nodo de la escena a procesar.
+	 */
 	void ProcessFBXNode(FbxNode* node);
+
+	/**
+	* @brief Procesa una malla asociada a un nodo FBX.
+	* @param node Nodo que contiene la malla.
+	*/
 	void ProcessFBXMesh(FbxNode* node);
+
+	/**
+	 * @brief Procesa los materiales asociados a una malla FBX.
+	 * @param material Material a procesar.
+	 */
 	void ProcessFBXMaterials(FbxSurfaceMaterial* material);
 
 	// Obtiene nombres de texturas de materiales FBX

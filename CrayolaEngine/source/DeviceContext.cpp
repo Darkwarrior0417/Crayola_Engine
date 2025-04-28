@@ -1,10 +1,16 @@
 ﻿#include "DeviceContext.h"
 
+/**
+ * @brief Libera el recurso del device context.
+ */
 void
 DeviceContext::destroy() {
 	SAFE_RELEASE(m_deviceContext);
 }
 
+/**
+ * @brief Establece el viewport para el pipeline de renderizado.
+ */
 void
 DeviceContext::RSSetViewports(unsigned int NumViewports,
 	const D3D11_VIEWPORT* pViewports) {
@@ -15,6 +21,9 @@ DeviceContext::RSSetViewports(unsigned int NumViewports,
 	m_deviceContext->RSSetViewports(NumViewports, pViewports);
 }
 
+/**
+ * @brief Asigna texturas al pixel shader.
+ */
 void
 DeviceContext::PSSetShaderResources(unsigned int StartSlot,
 	unsigned int NumViews,
@@ -33,10 +42,12 @@ DeviceContext::PSSetShaderResources(unsigned int StartSlot,
 			return;
 		}
 	}
-
 	m_deviceContext->PSSetShaderResources(StartSlot, NumViews, ppShaderResourceViews);
 }
 
+/**
+ * @brief Establece el layout de entrada de vértices.
+ */
 void
 DeviceContext::IASetInputLayout(ID3D11InputLayout* pInputLayout) {
 	if (!pInputLayout) {
@@ -46,6 +57,9 @@ DeviceContext::IASetInputLayout(ID3D11InputLayout* pInputLayout) {
 	m_deviceContext->IASetInputLayout(pInputLayout);
 }
 
+/**
+ * @brief Establece el vertex shader activo en el pipeline.
+ */
 void
 DeviceContext::VSSetShader(ID3D11VertexShader* pVertexShader,
 	ID3D11ClassInstance* const* ppClassInstances,
@@ -57,6 +71,9 @@ DeviceContext::VSSetShader(ID3D11VertexShader* pVertexShader,
 	m_deviceContext->VSSetShader(pVertexShader, ppClassInstances, NumClassInstances);
 }
 
+/**
+ * @brief Establece el pixel shader activo en el pipeline.
+ */
 void
 DeviceContext::PSSetShader(ID3D11PixelShader* pPixelShader,
 	ID3D11ClassInstance* const* ppClassInstances,
@@ -68,6 +85,9 @@ DeviceContext::PSSetShader(ID3D11PixelShader* pPixelShader,
 	m_deviceContext->PSSetShader(pPixelShader, ppClassInstances, NumClassInstances);
 }
 
+/**
+ * @brief Actualiza el contenido de un recurso en GPU.
+ */
 void
 DeviceContext::UpdateSubresource(ID3D11Resource* pDstResource,
 	unsigned int DstSubresource,
@@ -88,6 +108,9 @@ DeviceContext::UpdateSubresource(ID3D11Resource* pDstResource,
 		SrcDepthPitch);
 }
 
+/**
+ * @brief Asigna vertex buffers al Input Assembler.
+ */
 void
 DeviceContext::IASetVertexBuffers(unsigned int StartSlot,
 	unsigned int NumBuffers,
@@ -106,6 +129,9 @@ DeviceContext::IASetVertexBuffers(unsigned int StartSlot,
 		pOffsets);
 }
 
+/**
+ * @brief Asigna el index buffer al Input Assembler.
+ */
 void
 DeviceContext::IASetIndexBuffer(ID3D11Buffer* pIndexBuffer,
 	DXGI_FORMAT Format,
@@ -117,6 +143,9 @@ DeviceContext::IASetIndexBuffer(ID3D11Buffer* pIndexBuffer,
 	m_deviceContext->IASetIndexBuffer(pIndexBuffer, Format, Offset);
 }
 
+/**
+ * @brief Asigna samplers al pixel shader.
+ */
 void
 DeviceContext::PSSetSamplers(unsigned int StartSlot,
 	unsigned int NumSamplers,
@@ -128,6 +157,9 @@ DeviceContext::PSSetSamplers(unsigned int StartSlot,
 	m_deviceContext->PSSetSamplers(StartSlot, NumSamplers, ppSamplers);
 }
 
+/**
+ * @brief Establece el estado del rasterizador.
+ */
 void
 DeviceContext::RSSetState(ID3D11RasterizerState* pRasterizerState) {
 	if (!pRasterizerState) {
@@ -137,6 +169,9 @@ DeviceContext::RSSetState(ID3D11RasterizerState* pRasterizerState) {
 	m_deviceContext->RSSetState(pRasterizerState);
 }
 
+/**
+ * @brief Establece el estado de mezcla para el render target.
+ */
 void
 DeviceContext::OMSetBlendState(ID3D11BlendState* pBlendState,
 	const float BlendFactor[4],
@@ -148,6 +183,9 @@ DeviceContext::OMSetBlendState(ID3D11BlendState* pBlendState,
 	m_deviceContext->OMSetBlendState(pBlendState, BlendFactor, SampleMask);
 }
 
+/**
+ * @brief Asigna los render targets y el depth stencil view.
+ */
 void
 DeviceContext::OMSetRenderTargets(unsigned int NumViews,
 	ID3D11RenderTargetView* const* ppRenderTargetViews,
@@ -169,6 +207,9 @@ DeviceContext::OMSetRenderTargets(unsigned int NumViews,
 	m_deviceContext->OMSetRenderTargets(NumViews, ppRenderTargetViews, pDepthStencilView);
 }
 
+/**
+ * @brief Define la topología de primitivas (líneas, triángulos, etc.) para el Input Assembler.
+ */
 void
 DeviceContext::IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY Topology) {
 	// Validar el par�metro Topology
@@ -178,10 +219,13 @@ DeviceContext::IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY Topology) {
 		return;
 	}
 
-	// Asignar la topolog�a al Input Assembler
+	// Asignar la topología al Input Assembler
 	m_deviceContext->IASetPrimitiveTopology(Topology);
 }
 
+/**
+ * @brief Limpia el render target view con un color especificado.
+ */
 void
 DeviceContext::ClearRenderTargetView(ID3D11RenderTargetView* pRenderTargetView,
 	const float ColorRGBA[4]) {
@@ -199,6 +243,9 @@ DeviceContext::ClearRenderTargetView(ID3D11RenderTargetView* pRenderTargetView,
 	m_deviceContext->ClearRenderTargetView(pRenderTargetView, ColorRGBA);
 }
 
+/**
+ * @brief Limpia el depth stencil view.
+ */
 void
 DeviceContext::ClearDepthStencilView(ID3D11DepthStencilView* pDepthStencilView,
 	unsigned int ClearFlags,
@@ -222,6 +269,10 @@ DeviceContext::ClearDepthStencilView(ID3D11DepthStencilView* pDepthStencilView,
 	m_deviceContext->ClearDepthStencilView(pDepthStencilView, ClearFlags, Depth, Stencil);
 }
 
+
+/**
+ * @brief Asigna constant buffers al vertex shader.
+ */
 void
 DeviceContext::VSSetConstantBuffers(unsigned int StartSlot,
 	unsigned int NumBuffers,
@@ -236,6 +287,9 @@ DeviceContext::VSSetConstantBuffers(unsigned int StartSlot,
 	m_deviceContext->VSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers);
 }
 
+/**
+ * @brief Asigna constant buffers al pixel shader.
+ */
 void
 DeviceContext::PSSetConstantBuffers(unsigned int StartSlot,
 	unsigned int NumBuffers,
@@ -250,6 +304,9 @@ DeviceContext::PSSetConstantBuffers(unsigned int StartSlot,
 	m_deviceContext->PSSetConstantBuffers(StartSlot, NumBuffers, ppConstantBuffers);
 }
 
+/**
+ * @brief Dibuja una malla usando el index buffer asignado.
+ */
 void
 DeviceContext::DrawIndexed(unsigned int IndexCount,
 	unsigned int StartIndexLocation,

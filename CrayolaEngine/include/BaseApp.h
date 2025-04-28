@@ -16,7 +16,7 @@
 #include "ModelLoader.h"
 #include "ECS/Actor.h"
 
-class 
+class
 BaseApp {
 public:
     /*
@@ -32,27 +32,26 @@ public:
     /*
      * @brief Inicializa la aplicación.
      */
-    HRESULT 
+    HRESULT
     init();
 
     /*
      * @brief Actualiza la lógica de la aplicación en cada frame.
      */
-    void 
+    void
     update();
 
     /*
      * @brief Renderiza el contenido gráfico de la aplicación.
      */
-    void 
+    void
     render();
 
     /*
      * @brief Libera los recursos utilizados por la aplicación.
      */
     void
-    destroy();
-
+        destroy();
 
     /**
      * @brief Mapea las acciones de entrada del usuario.
@@ -79,7 +78,7 @@ public:
      * @brief Ejecuta la aplicación.
      */
     int
-    run(HINSTANCE hInstance,
+        run(HINSTANCE hInstance,
             HINSTANCE hPrevInstance,
             LPWSTR lpCmdLine,
             int nCmdShow,
@@ -104,34 +103,37 @@ public:
     Viewport                            m_viewport;
     ShaderProgram                       m_shaderProgram;
 
-
     // Buffers gráficos
-        /*Buffer                              m_vertexBuffer;
-        Buffer                              m_indexBuffer;*/
+    /*Buffer                              m_vertexBuffer;
+    Buffer                              m_indexBuffer;*/
     Buffer                              m_neverChange;
     Buffer                              m_changeOnResize;
     Buffer                              m_changesEveryFrame;
 
     // Texturas y estados
     Texture                             m_modelTexture;
-    SamplerState						m_samplerState;
+    SamplerState                        m_samplerState;
     ID3D11SamplerState* g_pSamplerLinear = NULL;
-    
+
     UI                                  m_UI;
 
+    // Modelos y Actores
     ModelLoader                         m_modelLoader;
     EngineUtilities::TSharedPointer<Actor>         ALethal;
     std::vector<Texture>                            m_modelTextures;
 
-    Texture m_default;
+    Texture                             m_default;
 
     ModelLoader                         m_modelLoader2;
-    EngineUtilities::TSharedPointer<Actor>          AStorm;
+    EngineUtilities::TSharedPointer<Actor>         AStorm;
     std::vector<Texture>                            m_modelTextures2;
 
     ModelLoader                         m_modelLoader3;
-    EngineUtilities::TSharedPointer<Actor>          AChaos;
+    EngineUtilities::TSharedPointer<Actor>         AChaos;
     std::vector<Texture>                            m_modelTextures3;
+
+    // ACTOR SELECCIONADO ACTUAL
+    EngineUtilities::TSharedPointer<Actor>         m_selectedActor;
 
     // Transformaciones y color
     /*XMMATRIX                            m_modelMatrix;*/
@@ -140,7 +142,7 @@ public:
     XMFLOAT4                            m_vMeshColor;
 
     // Transformación del objeto / cámara
-   /* XMFLOAT3 position;
+    /*XMFLOAT3 position;
     XMFLOAT3 rotation;
     XMFLOAT3 scale;*/
     /*MeshComponent m_meshComponent;*/
@@ -150,8 +152,8 @@ public:
     // Input
     bool keys[256] = { false };
     float sensitivity = 0.002f;
-    int lastX;
-    int lastY;
+    int lastX = 0;
+    int lastY = 0;
     bool mouseLeftDown = false;
 
     // Buffers constantes

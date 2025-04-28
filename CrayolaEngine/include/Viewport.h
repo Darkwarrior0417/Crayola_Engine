@@ -8,9 +8,17 @@ class DeviceContext;
  * @brief Encapsula la configuración y manejo de un viewport en DirectX 11.
  * Define el área de la pantalla donde se renderiza la escena.
  */
-class Viewport {
+class 
+Viewport {
 public:
+    /**
+     * @brief Constructor por defecto.
+     */
     Viewport() = default;
+
+    /**
+     * @brief Destructor por defecto.
+     */
     ~Viewport() = default;
 
     /**
@@ -18,7 +26,8 @@ public:
      * @param window Referencia a la ventana principal.
      * @return HRESULT que indica éxito o fallo.
      */
-    HRESULT init(const Window& window);
+    HRESULT 
+    init(const Window& window);
 
     /**
      * @brief Inicializa el viewport directamente con valores de ancho y alto.
@@ -26,23 +35,27 @@ public:
      * @param height Alto del viewport.
      * @return HRESULT que indica éxito o fallo.
      */
-    HRESULT init(unsigned int width, unsigned int height);
+    HRESULT 
+    init(unsigned int width, unsigned int height);
 
     /**
      * @brief Actualiza el estado del viewport (si aplica).
      */
-    void update();
+    void 
+    update();
 
     /**
      * @brief Establece el viewport en el pipeline de renderizado.
      * @param deviceContext Contexto de dispositivo de DirectX.
      */
-    void render(DeviceContext& deviceContext);
+    void 
+    render(DeviceContext& deviceContext);
 
     /**
      * @brief Libera los recursos asociados al viewport.
      */
-    void destroy();
+    void 
+    destroy();
 
 public:
     D3D11_VIEWPORT m_viewport; /* Estructura nativa de DirectX 11 que define el área de dibujo. */

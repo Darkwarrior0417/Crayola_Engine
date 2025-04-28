@@ -119,7 +119,9 @@ struct Camera {
     float yaw;          // Rotación horizontal (Y)
     float pitch;        // Rotación vertical (X)
 
-    // Constructor con valores iniciales
+    /**
+     * @brief Constructor que inicializa la cámara en una posición y orientación predeterminadas.
+     */
     Camera() {
         position = XMFLOAT3(0.0f, 1.0f, -5.0f);
         target = XMFLOAT3(0.0f, 1.0f, 0.0f);

@@ -3,19 +3,36 @@
 #include "DeviceContext.h"
 #include "ECS/Component.h"
 
-// Representa una malla con vértices e índices.
+/**
+ * @brief Representa una malla 3D compuesta por vértices e índices.
+ * Este componente se adjunta a un Actor dentro del sistema ECS.
+ */
 class MeshComponent : public Component {
 public:
-    // Constructor que inicializa los contadores en cero.
+
+    /**
+     * @brief Constructor que inicializa los contadores de vértices e índices en cero
+     * y define el tipo de componente como MESH.
+     */
     MeshComponent() : m_numVertex(0), m_numIndex(0), Component(ComponentType::MESH) {}
 
-    // Destructor por defecto.
+    /**
+     * @brief Destructor por defecto.
+     */
     virtual
     ~MeshComponent() = default;
 
+    /**
+     * @brief Actualiza la lógica del componente (no implementado para mallas).
+     * @param deltaTime Tiempo transcurrido entre frames.
+     */
     void
     update(float deltaTime) override {}
 
+    /**
+     * @brief Renderiza la malla (implementación vacía; la renderización real ocurre en otro nivel).
+     * @param deviceContext Contexto de dispositivo utilizado para el renderizado.
+     */
     void
     render(DeviceContext& deviceContext) override {}
 

@@ -55,7 +55,7 @@ public:
      * @param meshes Vector of Mesh Components objects representing meshes.
      */
     void
-        setMesh(Device& device, std::vector<MeshComponent> meshes);
+        setMesh(Device& device, const std::vector<MeshComponent>& meshes);
 
     /**
     * @brief Sets the textures of the actor.
@@ -86,7 +86,6 @@ private:
     vector<Texture> m_textures;
     vector<Buffer> m_vertexBuffers;
     vector<Buffer> m_indexBuffers;
-    vector<Buffer> m_buffers;
 
     Buffer m_modelBuffer;
     SamplerState m_sampler;
@@ -96,7 +95,6 @@ private:
 
 /*
   * The purpose of this function is to search for and return a specific component of an actor using the specific component type as template arguments.
-  * actor using the type of the specific component as template arguments.
   * If the component is not found, the function returns nullptr.
   */
 template<typename T>

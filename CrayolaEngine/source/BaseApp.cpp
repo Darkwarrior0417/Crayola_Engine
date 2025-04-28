@@ -4,13 +4,13 @@
     BaseApp::init() {
         HRESULT hr = S_OK;
 
-        // Create Swapchain and BackBuffer
+        // Inicializar SwapChain y BackBuffer
         hr = m_swapchain.init(m_device, m_deviceContext, m_backBuffer, m_window);
         if (FAILED(hr)) {
             return hr;
         }
 
-        // Create a render target view
+        // Crear Render Target View
         hr = m_renderTargetView.init(m_device,
             m_backBuffer,
             DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -19,7 +19,7 @@
             return hr;
         }
 
-        // Create a depth stencil
+        // Crear DepthStencil y su View
         hr = m_depthStencil.init(m_device,
             m_window.m_width,
             m_window.m_height,
@@ -38,13 +38,13 @@
         if (FAILED(hr))
             return hr;
 
-        // Setup the viewport
+        // Configurar Viewport
         hr = m_viewport.init(m_window);
 
         if (FAILED(hr))
             return hr;
 
-        // Define the input layout
+        // Definir Input Layout para los vértices
         std::vector<D3D11_INPUT_ELEMENT_DESC> Layout;
 
         D3D11_INPUT_ELEMENT_DESC position;
@@ -57,6 +57,7 @@
         position.InstanceDataStepRate = 0;
         Layout.push_back(position);
 
+        // Coordenadas de textura
         D3D11_INPUT_ELEMENT_DESC texcoord;
         texcoord.SemanticName = "TEXCOORD";
         texcoord.SemanticIndex = 0;
@@ -67,7 +68,7 @@
         texcoord.InstanceDataStepRate = 0;
         Layout.push_back(texcoord);
 
-        // Create the Shader Program
+        // Inicializar Shader Program
         hr = m_shaderProgram.init(m_device, "CrayolaEngine.fx", Layout);
 
         if (FAILED(hr))
@@ -150,7 +151,7 @@
             return hr;
         }*/
 
-        // Create the constant buffers
+        // Crear Constant Buffers
         hr = m_neverChange.init(m_device, sizeof(CBNeverChanges));
         if (FAILED(hr))
             return hr;
@@ -163,12 +164,12 @@
         if (FAILED(hr))
             return hr;
 
+        // Cargar textura de modelo
         hr =m_modelTexture.init(m_device, "seafloor.dds", DDS);
         if (FAILED(hr))
             return hr;
 
-        // Create the sample state
-
+        // Inicializar estado de muestreo
         hr = m_samplerState.init(m_device);
         if (FAILED(hr))
             return hr;
@@ -180,12 +181,13 @@
         scale.y = 1.0f;
         scale.z = 1.0f;*/
 
-        // Initialize the view matrix
+        // Configurar matriz de vista
         XMVECTOR Eye = XMVectorSet(0.0f, 3.0f, -6.0f, 0.0f);
         XMVECTOR At = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
         XMVECTOR Up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
         m_View = XMMatrixLookAtLH(Eye, At, Up);
 
+        // Inicializar ImGui
         m_UI.init(m_window.m_hWnd, m_device.m_device, m_deviceContext.m_deviceContext);
         // -------------------- OmniMan --------------------
 

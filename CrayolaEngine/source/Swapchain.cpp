@@ -4,8 +4,16 @@
 #include "Window.h"
 #include "Texture.h"
 
-// Inicializa el SwapChain, crea el dispositivo, contexto, back buffer y MSAA
-HRESULT SwapChain::init(Device& device,
+/**
+ * @brief Inicializa el SwapChain creando dispositivo, contexto, y configurando MSAA.
+ * @param device Referencia al objeto Device para almacenar el dispositivo creado.
+ * @param deviceContext Referencia al objeto DeviceContext para almacenar el contexto creado.
+ * @param backBuffer Textura que contendrá el render target.
+ * @param window Ventana donde se presentará el contenido.
+ * @return HRESULT indicando éxito o fallo de la inicialización.
+ */
+HRESULT
+SwapChain::init(Device& device,
     DeviceContext& deviceContext,
     Texture& backBuffer,
     Window& window) {
@@ -123,24 +131,36 @@ HRESULT SwapChain::init(Device& device,
     return S_OK;
 }
 
-// Método vacío para lógica futura
-void SwapChain::update() {
+/**
+ * @brief Método vacío: reservado para futura lógica de actualización del SwapChain.
+ */
+void 
+SwapChain::update() {
 }
 
-// Método vacío para renderizar directamente desde el swapchain (opcional)
-void SwapChain::render() {
+/**
+ * @brief Método vacío: reservado para lógica de renderizado directo desde el SwapChain.
+ */
+void
+SwapChain::render() {
 }
 
-// Libera todos los recursos relacionados al SwapChain y DXGI
-void SwapChain::destroy() {
+/**
+ * @brief Libera los recursos asociados al SwapChain y sus interfaces DXGI.
+ */
+void
+SwapChain::destroy() {
     SAFE_RELEASE(m_swapchain);
     SAFE_RELEASE(m_dxgiFactory);
     SAFE_RELEASE(m_dxgiAdapter);
     SAFE_RELEASE(m_dxgiDevice);
 }
 
-// Presenta el frame actual en pantalla
-void SwapChain::present() {
+/**
+ * @brief Presenta el contenido del back buffer en pantalla.
+ */
+void
+SwapChain::present() {
     if (m_swapchain) {
         HRESULT hr = m_swapchain->Present(0, 0);
         if (FAILED(hr)) {

@@ -99,7 +99,8 @@ Buffer::update(DeviceContext& deviceContext,
 }
 
 // Enlaza el buffer al pipeline de render según su tipo: Vertex, Index o Constant.
-void Buffer::render(DeviceContext& deviceContext,
+void 
+Buffer::render(DeviceContext& deviceContext,
     unsigned int StartSlot,
     unsigned int NumBuffers,
     bool setPixelShader,
@@ -132,6 +133,7 @@ void Buffer::render(DeviceContext& deviceContext,
 }
 
 // Libera los recursos del buffer y a Willy.
-void Buffer::destroy() {
+void 
+Buffer::destroy() {
     SAFE_RELEASE(m_buffer);
 }
