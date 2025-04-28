@@ -47,6 +47,8 @@ Buffer.h — Administra los Vertex, Index y Constant Buffers.
 SamplerState.h — Controla el muestreo de texturas.
 
 UI.h (UserInterface) — Implementa una interfaz de usuario gráfica utilizando ImGui (Docking + Custom Windows).
+![image](https://github.com/user-attachments/assets/24d57cb6-e5d7-4ffd-a43f-bac4a2f6953c)
+
 
 TERCER PARCIAL
 
@@ -63,4 +65,7 @@ Jerarquía e Inspector en ImGui — Implementado un sistema donde se pueden ver 
 Soporte a Carga de Materiales Básicos desde OBJ/FBX — Se obtiene automáticamente la textura difusa (Diffuse) de los modelos cargados.
 
 Mejoras en la gestión de recursos — Limpieza automática de Buffers, Texturas y Samplers al destruir los actores.
+
+![image](https://github.com/user-attachments/assets/af838825-0c0c-4934-9ea9-99875d3a6095)
+
 
