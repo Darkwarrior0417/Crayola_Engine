@@ -97,21 +97,9 @@ Abre Visual Studio y selecciona Archivo → Abrir → Proyecto o Solución.
 
 Navega hasta el directorio del proyecto y abre el archivo .sln (solución de Visual Studio).
 
-Asegúrate que la Configuración de Compilación esté en:
-
-Configuration: Debug o Release
+Asegúrate que la Configuración de Compilación esté en: Debug o Release
 
 Platform: x64
-
-Revisar las Dependencias:
-
-Asegúrate que Visual Studio pueda encontrar las librerías de FBX SDK.
-
-(Si es necesario) Ajusta en Propiedades del Proyecto → VC++ Directories:
-
-Include Directories: añade la ruta donde tengas instalado FBX SDK/include
-
-Library Directories: añade la ruta de FBX SDK/lib vs2019/x64 o equivalente.
 
 Compila el proyecto:
 
@@ -119,16 +107,6 @@ Pulsa Ctrl+Shift+B o selecciona Compilar → Compilar solución.
 
 Ejecutar el Motor
 
-Si la compilación fue exitosa, simplemente pulsa F5 o Depurar → Iniciar depuración.
 
-La ventana principal de CrayolaEngine aparecerá:
-
-Mostrará el render de los modelos cargados.
-
-Podrás interactuar con la escena usando la cámara (WASD + Mouse).
-
-Podrás modificar las transformaciones de los actores desde el Inspector de ImGui.
-
-Cerrar el motor: cierra la ventana normalmente o presiona el botón de cerrar.
 
 
