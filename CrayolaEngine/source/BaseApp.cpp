@@ -338,6 +338,11 @@
         // Actualiza el UI
         m_UI.update();
 
+        m_UI.ActorSelector(); 
+
+        // Mostrar inspector general (puedes agregar controles)
+        m_UI.Inspector();
+
         // Debug window con algún texto
         ImGui::Begin("Crayola");
         ImGui::Text("Venom Venom Venom");
@@ -345,25 +350,16 @@
 
         // -------------------- LethalGuy --------------------
         if (!ALethal.isNull()) {
-            // Mostrar y editar transform en el UI
-            m_UI.TransformGUI(*ALethal->getComponent<Transform>());
-            // Actualizar lógica interna
             ALethal->update(0, m_deviceContext);
         }
 
         // -------------------- Stormtrooper --------------------
         if (!AStorm.isNull()) {
-            // Mostrar y editar transform en el UI
-            m_UI.TransformGUI(*AStorm->getComponent<Transform>());
-            // Actualizar lógica interna
             AStorm->update(0, m_deviceContext);
         }
 
         // -------------------- Peely --------------------
         if (!AChaos.isNull()) {
-            // Mostrar y editar transform en el UI
-            m_UI.TransformGUI(*AChaos->getComponent<Transform>());
-            // Actualizar lógica interna
             AChaos->update(0, m_deviceContext);
         }
 
@@ -379,10 +375,6 @@
                 dwTimeStart = dwTimeCur;
             t = (dwTimeCur - dwTimeStart) / 1000.0f;
         }
-
-        // Mostrar inspector general (puedes agregar controles)
-        m_UI.Inspector();
-
         // Actualizar posición de cámara
         inputActionMap(t);
 

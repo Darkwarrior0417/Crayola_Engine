@@ -51,7 +51,7 @@ public:
      * @brief Libera los recursos utilizados por la aplicación.
      */
     void
-        destroy();
+    destroy();
 
     /**
      * @brief Mapea las acciones de entrada del usuario.
@@ -78,7 +78,7 @@ public:
      * @brief Ejecuta la aplicación.
      */
     int
-        run(HINSTANCE hInstance,
+    run(HINSTANCE hInstance,
             HINSTANCE hPrevInstance,
             LPWSTR lpCmdLine,
             int nCmdShow,

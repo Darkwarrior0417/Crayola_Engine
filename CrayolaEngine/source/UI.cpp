@@ -113,7 +113,8 @@ UI::Inspector()
  * @brief Dibuja controles de posición, rotación y escala para un Transform.
  * @param transform Transform a modificar.
  */
-void UI::TransformGUI(Transform& transform)
+void 
+UI::TransformGUI(Transform& transform)
 {
     ImGui::Begin("Transform");
 
@@ -179,6 +180,46 @@ UI::baseStyleGUI()
     style.FrameBorderSize = 1.0f;
     style.WindowBorderSize = 1.0f;
     style.PopupBorderSize = 1.0f;
+}
+
+/**
+ * @brief Muestra una lista de actores para seleccionar cuál editar en el Inspector.
+ */
+void 
+UI::ActorSelector()
+{   
+    // Inicia una nueva ventana de ImGui llamada "Actor Selector"
+    ImGui::Begin("Actor Selector");
+
+    // Estructura auxiliar que guarda un actor y su nombre visible en la lista
+    struct ActorOption {
+        EngineUtilities::TSharedPointer<Actor> actor;
+        std::string displayName;
+    };
+
+    // Vector de actores disponibles para seleccionar
+    std::vector<ActorOption> actors = {
+        { g_app.ALethal, "OmniMan" },
+        { g_app.AStorm, "Stormtrooper" },
+        { g_app.AChaos, "Peely" }
+    };
+
+    int id = 0;
+    for (auto& actorOption : actors) {
+        if (!actorOption.actor.isNull()) {
+            // Mostrar nombre visible + ID único interno para ImGui
+            std::string label = actorOption.displayName + "##" + std::to_string(id++);
+            bool isSelected = (g_app.m_selectedActor == actorOption.actor);
+
+            // Dibuja un botón "selectable" con el nombre y el ID único
+            if (ImGui::Selectable(label.c_str(), isSelected)) {
+                g_app.m_selectedActor = actorOption.actor;
+            }
+        }
+    }
+
+    // Termina la ventana de ImGui
+    ImGui::End();
 }
 
 /**
